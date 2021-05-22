@@ -2,13 +2,15 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 export const useStyles = makeStyles((theme) => ({
     app: {
+        display: 'flex',
         '& .MuiGrid-root.MuiGrid-root': {
             padding: 0,
         }
     },
     header: {
         backgroundColor: '#D2DFED',
-        height: 70,
+        height: 65,
+        width: '100vw',
         '& .MuiOutlinedInput-root': {
             borderRadius: 40,
         },
@@ -16,7 +18,7 @@ export const useStyles = makeStyles((theme) => ({
     headerSearch: {
         backgroundColor: '#FFFFFF',
         borderRadius: 40,
-        marginTop: 20,
+        marginTop: 15,
         marginLeft: 20,
         width: 675,
         height: 40,
@@ -31,7 +33,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        color: '#FFFFFF',
+
     },
     sideMenuLogo: {
         width: 96,
@@ -42,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
         top: 10,
     },
     sideMenuList: {
-        padding: 10,
+        paddingTop: 10,
         '& :hover': {
             backgroundColor: '#002B4B'
         }
@@ -57,6 +59,8 @@ export const useStyles = makeStyles((theme) => ({
     },
     sideMenuListItemLabel: {
         fontSize: 12,
+        color: '#FFFFFF',
+        textDecoration: 'none',
     },
     applicationsList: {
         paddingTop: 30,
@@ -125,11 +129,11 @@ export const useStyles = makeStyles((theme) => ({
         paddingLeft: 15,
     },
     modalBlock: {
-        height: 'calc(100vh - 58px)',
+        height: 'calc(100vh - 65px)',
+        width: 'calc(100vw - 660px)',
         position: 'fixed',
-        top: 57,
+        top: 65,
         right: 0,
-        width: '49%',
         border: '1px solid rgb(117,117,117, .5)'
     },
     modalBlockHeader: {
@@ -195,17 +199,17 @@ export const useStyles = makeStyles((theme) => ({
         borderColor: '#B5BBBF',
         outline: 'none',
     },
-
-
-
-
     editApplication: {
-        paddingTop: 30,
-        paddingLeft: 35,
+        display: 'flex',
+        width: 'calc(100vw - 55%)',
     },
     editApplicationLeftBlock: {
-        maxWidth: 700,
-        width: '42vw',
+        paddingTop: 30,
+        paddingLeft: 35,
+        paddingRight: 40,
+        height: 'calc(100vh - 140px)',
+        width: 'calc(100vw - 941px)',
+        borderRight: '1px solid rgb(117,117,117, .5)'
     },
     editApplicationHeader: {
         color: '#9A9A9A',
@@ -214,20 +218,21 @@ export const useStyles = makeStyles((theme) => ({
     editApplicationDescription: {
         height: 85,
         width: '100%',
+        maxWidth: 655,
         marginBottom: 45,
         overflow: 'auto',
     },
-    editApplicationAddComment: {
 
-
-    },
     editApplicationAddCommentTextArea: {
         height: 75,
         padding: 5,
-        width: 'calc(100% - 10px)',
+        width: '100%',
+        maxWidth: 655,
         marginBottom: 25,
         overflow: 'auto',
         resize: 'none',
+        border: 'none',
+        backgroundColor: 'inherit'
     },
     editApplicationComments: {
         marginTop: 43,
@@ -253,11 +258,62 @@ export const useStyles = makeStyles((theme) => ({
     },
     editApplicationCommentsTitle: {
         backgroundColor: '#E3E9F5',
-        maxWidth: 620,
+        maxWidth: 600,
         height: 100,
         padding: '8px 10px',
         borderRadius: 8,
         marginLeft: 50,
-    }
-
+    },
+    editApplicationRightBlock: {
+        fontSize: 14,
+        padding: 30,
+        width: 175,
+        height: 'calc(100vh - 140px)',
+    },
+    editApplicationStatus: {
+        display: 'flex',
+        marginBottom: 50,
+        height: 20,
+    },
+    editApplicationStatusTitle: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        position: 'relative',
+        top: -6,
+        left: 9,
+        paddingLeft: 4,
+        color: '#9A9A9A',
+        fontWeight: 600,
+        height: 20,
+        width: 100,
+        cursor: 'pointer',
+        transition: 'backgroundColor 0.3s ease',
+        '&:hover': {
+            borderRadius: 10,
+            backgroundColor: '#c7e4ef',
+        }
+    },
+    editApplicationStatusSelect: {
+        position: 'relative',
+        top: -7,
+        left: 9,
+        maxWidth: 110,
+    },
+    editApplicationStatusIcon: {
+        borderRadius: 20,
+        height: 10,
+        width: 10,
+    },
+    editApplicationHead: {
+        color: '#9A9A9A',
+        marginBottom: 5,
+    },
+    editApplicationMargin: {
+        marginBottom: 40
+    },
+    editApplicationTags: {
+        height: 20,
+        backgroundColor: '#FFFFFF',
+        marginBottom: 5
+    },
 }))

@@ -1,5 +1,6 @@
 import React from "react";
 import {useStyles} from "../pages/theme";
+import {IReturnType} from "../pages/ApplicationsList";
 
 
 interface InItemsList {
@@ -11,30 +12,25 @@ interface InItemsList {
     priorityId?: number
     priorityName?: string
     initiatorName?: string
+    prioritySelected: (priorityId: number | undefined) => IReturnType | undefined
 }
 
-export const ItemsList: React.FC<InItemsList> = ({id,initiatorName,name,statusName,statusRgb,priorityId}) => {
+export const ItemsList: React.FC<InItemsList> = ({
+                                                     id,
+                                                     initiatorName,
+                                                     name,
+                                                     statusName,
+                                                     statusRgb,
+                                                     priorityId,
+                                                     statusId,
+                                                     prioritySelected
+                                                 }) => {
     const classes = useStyles()
-
-    const priorityStyleSelected = () => {
-        if (priorityId === 54071) {
-            return '#b32c55'
-        } else if (priorityId === 54072) {
-            return "#fbd6b9"
-        } else if (priorityId === 54073) {
-            return "#f75394"
-        } else if (priorityId === 54074) {
-            return "#b32c55"
-        } else if (priorityId === 54075) {
-            return "#ee0909"
-        } else {
-            return '#FFFFFF'
-        }
-    }
 
     return (
         <div className={classes.applicationsListItem}>
-            <div className={classes.applicationsListPriority} style={{backgroundColor: `${priorityStyleSelected()}`}}/>
+            <div className={classes.applicationsListPriority}
+                 style={{backgroundColor: `${prioritySelected(priorityId)?.rgb}`}}/>
             <div className={classes.applicationsListId}>
                 {id}
             </div>

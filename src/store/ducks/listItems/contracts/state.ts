@@ -5,33 +5,54 @@ interface ITags {
     name: string
 }
 
-export interface InItem {
-    createdAt?: string
-    description: string
-    executorGroupId?: number
-    executorGroupName?: string
-    executorId?: string
-    executorName?: string
+interface IComment {
     id: number
-    initiatorId?: number
-    initiatorName?: string
+    userName: string
+    lifetimeType: number
+    createdAt: string
+    comment: string
+    fieldName: string
+    oldFieldValue: string
+    newFieldValue: string
+}
+
+export interface IPrioritiesOrStatus {
+    rgb: string
+    id: number
     name: string
+}
+
+export interface IOrder {
+    id: number
+    name: string
+    description: string
+    createdAt?: string
+    updatedAt?: string
     price?: number
-    priorityId?: number
-    priorityName?: string
-    resolutionDatePlan?: string
-    serviceId?: number
-    serviceName?: string
+    taskTypeId?: number
+    taskTypeName?: string
     statusId?: number
     statusName?: string
     statusRgb?: string
+    priorityId?: number
+    priorityName?: string
+    serviceName?: string
+    serviceId?: number
+    resolutionDatePlan?: string
     tags?: ITags[]
-    taskTypeId?: number
-    taskTypeName?: string
-    updatedAt?: string
+    initiatorId?: number
+    initiatorName?: string
+    executorId?: string
+    executorName?: string
+    executorGroupId?: number
+    executorGroupName?: string
+    lifetimeItems?: IComment[]
 }
 
-export interface IListItemsState {
-    items: InItem[]
+export interface IState {
+    priorities: IPrioritiesOrStatus[]
+    statuses: IPrioritiesOrStatus[]
+    orders: IOrder[]
+    order?: IOrder
     status: LoadingStatus
 }

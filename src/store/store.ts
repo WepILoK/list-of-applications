@@ -2,7 +2,7 @@ import {applyMiddleware, compose, createStore} from "redux";
 import createSagaMiddleware from 'redux-saga';
 import {rootReducer} from "./rootReducers";
 import rootSaga from "./saga";
-import {IListItemsState} from "./ducks/listItems/contracts/state";
+import {IState} from "./ducks/listItems/contracts/state";
 
 
 const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
@@ -10,7 +10,7 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 const sagaMiddleware = createSagaMiddleware()
 
 export interface RootState {
-    listItems: IListItemsState
+    listItems: IState
 
 }
 

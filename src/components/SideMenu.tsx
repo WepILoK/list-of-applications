@@ -1,4 +1,5 @@
 import React from "react";
+// import {Link} from "react-router-dom";
 import logo from '../assets/image/logo.png'
 import analytics from '../assets/image/analytics.png'
 import book from '../assets/image/noun_Book_121819.png'
@@ -18,30 +19,42 @@ export const SideMenu: React.FC = () => {
                 <img src={logo} alt='logo'/>
             </div>
             <div className={classes.sideMenuList}>
-                <div className={classes.sideMenuListItem} >
-                    <img src={book} alt=''/>
-                    <div className={classes.sideMenuListItemLabel}>База знаний</div>
-                </div>
-                <div className={classes.sideMenuListItem}>
-                    <img src={file} alt=''/>
-                    <div className={classes.sideMenuListItemLabel}>Заявки</div>
-                </div>
-                <div className={classes.sideMenuListItem}>
-                    <img src={people} alt=''/>
-                    <div className={classes.sideMenuListItemLabel}>Сотрудники</div>
-                </div>
-                <div className={classes.sideMenuListItem}>
-                    <img src={city} alt=''/>
-                    <div className={classes.sideMenuListItemLabel}>Клиенты</div>
-                </div>
-                <div className={classes.sideMenuListItem}>
-                    <img src={analytics} alt=''/>
-                    <div className={classes.sideMenuListItemLabel}>Активы</div>
-                </div>
-                <div className={classes.sideMenuListItem}>
-                    <img src={settings} alt=''/>
-                    <div className={classes.sideMenuListItemLabel}>Настройки</div>
-                </div>
+                {/*// <Link to='/'>*/}
+                    <div className={classes.sideMenuListItem}>
+                        <img src={book} alt=''/>
+                        <div className={classes.sideMenuListItemLabel}>База знаний</div>
+                    </div>
+                {/*</Link>*/}
+                {/*<Link to='/home'>*/}
+                    <div className={classes.sideMenuListItem}>
+                        <img src={file} alt=''/>
+                        <div className={classes.sideMenuListItemLabel}>Заявки</div>
+                    </div>
+                {/*</Link>*/}
+                {/*<Link to='/'>*/}
+                    <div className={classes.sideMenuListItem}>
+                        <img src={people} alt=''/>
+                        <div className={classes.sideMenuListItemLabel}>Сотрудники</div>
+                    </div>
+                {/*</Link>*/}
+                {/*<Link to='/'>*/}
+                    <div className={classes.sideMenuListItem}>
+                        <img src={city} alt=''/>
+                        <div className={classes.sideMenuListItemLabel}>Клиенты</div>
+                    </div>
+                {/*</Link>*/}
+                {/*<Link to='/'>*/}
+                    <div className={classes.sideMenuListItem}>
+                        <img src={analytics} alt=''/>
+                        <div className={classes.sideMenuListItemLabel}>Активы</div>
+                    </div>
+                {/*</Link>*/}
+                {/*<Link to='/'>*/}
+                    <div className={classes.sideMenuListItem}>
+                        <img src={settings} alt=''/>
+                        <div className={classes.sideMenuListItemLabel}>Настройки</div>
+                    </div>
+                {/*</Link>*/}
             </div>
         </div>
 

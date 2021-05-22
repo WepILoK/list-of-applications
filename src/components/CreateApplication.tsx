@@ -28,10 +28,10 @@ export const CreateApplication: React.FC<ICreateApplication> = ({onClose, openEd
     const handleChangeName = (e: React.FormEvent<HTMLTextAreaElement>, type: 'name' | 'description'): void => {
         if (e.currentTarget) {
             let value = e.currentTarget.value
-            if (type == 'name') {
-                setText({name: value, description: text?.description})
-            } else if (type == 'description') {
-                setText({name: text?.name, description: value})
+            if (type === 'name') {
+                setText({...text, name: value})
+            } else if (type === 'description') {
+                setText({...text, description: value})
             }
         }
     }
