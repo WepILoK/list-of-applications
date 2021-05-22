@@ -23,6 +23,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     sideMenu: {
         position: 'sticky',
+        width: 96,
         top: 0,
         left: 0,
         backgroundColor: '#012138',
@@ -50,7 +51,6 @@ export const useStyles = makeStyles((theme) => ({
         cursor: 'pointer',
         textAlign: 'center',
         paddingTop: 15,
-        paddingLeft: 4,
         width: 95,
         height: 55,
 
@@ -229,4 +229,35 @@ export const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
         resize: 'none',
     },
+    editApplicationComments: {
+        marginTop: 43,
+    },
+    editApplicationCommentsHeader: {
+        display: 'flex',
+        marginBottom: 17,
+    },
+    editApplicationCommentsAvatar: {
+        backgroundColor: '#FAFBFC',
+        border: '1px solid #9A9A9A',
+        borderRadius: 30,
+        height: 40,
+        width: 40,
+        marginRight: 10,
+    },
+    editApplicationCommentsAuthor: {
+        marginTop: 10,
+        marginBottom: 5,
+    },
+    editApplicationCommentsTime: {
+        fontSize: 12
+    },
+    editApplicationCommentsTitle: {
+        backgroundColor: '#E3E9F5',
+        maxWidth: 620,
+        height: 100,
+        padding: '8px 10px',
+        borderRadius: 8,
+        marginLeft: 50,
+    }
+
 }))

@@ -53,15 +53,19 @@ export const EditApplication: React.FC<IEditApplication & InItem> = ({onClose, i
                             Сохранить
                         </Button>
                     </div>
-                    <div>
-                        <div>
-                            <div/>
+                    <div className={classes.editApplicationComments}>
+                        <div className={classes.editApplicationCommentsHeader}>
+                            <div className={classes.editApplicationCommentsAvatar}/>
                             <div>
-                                <div>Иванов Александр</div>
-                                <div>12 ав в фцвцфвцфвцфвцфв</div>
+                                <div className={classes.editApplicationCommentsAuthor}>
+                                    Иванов Александр
+                                </div>
+                                <div className={classes.editApplicationCommentsTime}>
+                                    12 ав в фцвцфвцфвцфвцфв
+                                </div>
                             </div>
                         </div>
-                        <div>
+                        <div className={classes.editApplicationCommentsTitle}>
                             Это третья строка Это третья строка Это третья строка Это третья строка
                             Это третья строка Это третья строка Это третья строка Это третья строка
                             Это третья строка Это третья строка Это третья строка
