@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {Button} from "@material-ui/core";
+import {Route, useHistory} from 'react-router-dom';
+
 import {useStyles} from "./theme";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchListItems, fetchPrioritiesOrStatuses} from "../store/ducks/listItems/actionCreators";
-import {selectListItems} from "../store/ducks/listItems/selectors";
+import {
+    selectListItems,
+    selectItemLoadingStatus,
+    selectListItemsLoadingStatus
+} from "../store/ducks/listItems/selectors";
 import {CreateApplication} from "../components/CreateApplication";
 import {EditApplication} from "../components/EditApplication";
-import {ItemsList} from "../components/ItemsList";
+import {Application} from "../components/Application";
 
 
 export interface IReturnType {
@@ -16,22 +22,22 @@ export interface IReturnType {
 }
 
 export const ApplicationsList: React.FC = () => {
-    const [visibleBlock, setVisibleBlock] = useState<'createItem' | 'editItem'| ''>('editItem')
     const dispatch = useDispatch()
     const items = useSelector(selectListItems)
+    const loadingStatus = useSelector(selectItemLoadingStatus)
+    const listItemsLoadingStatus = useSelector(selectListItemsLoadingStatus)
+
     const classes = useStyles()
+    const history = useHistory()
 
-    const handleClickOpenCreateItem = (): void => {
-        setVisibleBlock('createItem')
+    const openCreateBlock = (): void => {
+        history.push('/applications/create')
     }
 
-    const handleClickOpenEditItem = (): void => {
-        setVisibleBlock('editItem')
+    const openEditItem = () => {
+        // history.push(`/applications/edit/${items[0].id}`)
     }
 
-    const handleCloseModel = (): void => {
-        setVisibleBlock('')
-    }
     const arr = [
         {
             id: 555,
@@ -64,13 +70,16 @@ export const ApplicationsList: React.FC = () => {
 
     useEffect(() => {
         dispatch(fetchPrioritiesOrStatuses())
-        dispatch(fetchListItems())
     }, [])
+
+    useEffect(() => {
+        dispatch(fetchListItems())
+    }, [listItemsLoadingStatus])
 
     return (
         <div className={classes.applicationsList}>
             <div className={classes.applicationsListButton}>
-                <Button onClick={handleClickOpenCreateItem} variant="contained" color="primary">
+                <Button onClick={openCreateBlock} variant="contained" color="primary">
                     Создать заявку
                 </Button>
             </div>
@@ -88,17 +97,17 @@ export const ApplicationsList: React.FC = () => {
                     Исполнитель
                 </div>
             </div>
-            {
-                items.map(item =>
-                    // <Link to='/edit'>
-                        <ItemsList prioritySelected={prioritySelected} key={item.id} {...item}/>
-                    // </Link>
-                )
-            }
-            { visibleBlock === 'createItem' &&
-            <CreateApplication openEditItem={handleClickOpenEditItem} onClose={handleCloseModel}/>}
-            { visibleBlock === 'editItem' &&
-            <EditApplication {...items[0]} onClose={handleCloseModel}/>}
+            {items.map(item =>
+                    <Link key={item.id} to={`/applications/edit/${item.id}`}>
+                        <Application prioritySelected={prioritySelected} {...item}/>
+                    </Link>
+                )}
+            <Route path='/applications/create'>
+                <CreateApplication openEditItem={openEditItem}/>
+            </Route>
+            <Route path='/applications/edit/:id' exact>
+                <EditApplication/>
+            </Route>
         </div>
     )
 }

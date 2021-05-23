@@ -15,7 +15,7 @@ interface InItemsList {
     prioritySelected: (priorityId: number | undefined) => IReturnType | undefined
 }
 
-export const ItemsList: React.FC<InItemsList> = ({
+export const Application: React.FC<InItemsList> = ({
                                                      id,
                                                      initiatorName,
                                                      name,

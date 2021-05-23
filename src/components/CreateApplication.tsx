@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ModalBlock} from "./ModalBlock";
 import Button from "@material-ui/core/Button";
 import {useStyles} from "../pages/theme";
@@ -6,11 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {fetchCreateItem} from "../store/ducks/listItems/actionCreators";
 import {CircularProgress} from "@material-ui/core";
 import {LoadingStatus} from "../store/types";
-import {selectLoadingStatus} from "../store/ducks/listItems/selectors";
+import {selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
 
 
 interface ICreateApplication {
-    onClose: () => void
     openEditItem: () => void
 }
 
@@ -19,10 +18,10 @@ export interface ITextAreaValues {
     description: string
 }
 
-export const CreateApplication: React.FC<ICreateApplication> = ({onClose, openEditItem}) => {
+export const CreateApplication: React.FC<ICreateApplication> = ({openEditItem}) => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})
     const dispatch = useDispatch()
-    const loadingStatus = useSelector(selectLoadingStatus)
+    const loadingStatus = useSelector(selectItemLoadingStatus)
     const classes = useStyles()
 
     const handleChangeName = (e: React.FormEvent<HTMLTextAreaElement>, type: 'name' | 'description'): void => {
@@ -40,10 +39,12 @@ export const CreateApplication: React.FC<ICreateApplication> = ({onClose, openEd
         dispatch(fetchCreateItem(text))
         setText({name: '', description: ''})
         openEditItem()
+            // console.log(items[0]?.id)
+
     };
 
     return (
-        <ModalBlock title='Новая заявка' onClose={onClose}>
+        <ModalBlock title='Новая заявка'>
             <div className={classes.createApplicationForm}>
                 <div>
                     <div>Название</div>
@@ -59,7 +60,7 @@ export const CreateApplication: React.FC<ICreateApplication> = ({onClose, openEd
                         onChange={event => handleChangeName(event, 'description')}
                         className={classes.createApplicationFormDescription}/>
                 </div>
-                <Button disabled={text.name.length < 5 || text.description.length < 5 }
+                <Button disabled={text.name.length < 5 || text.description.length < 5}
                         onClick={onSubmit} type='submit' variant='contained' color='primary'>
                     {loadingStatus === LoadingStatus.LOADING
                         ? <CircularProgress color='inherit' size={20}/>

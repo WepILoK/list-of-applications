@@ -33,7 +33,6 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-
     },
     sideMenuLogo: {
         width: 96,
@@ -47,6 +46,10 @@ export const useStyles = makeStyles((theme) => ({
         paddingTop: 10,
         '& :hover': {
             backgroundColor: '#002B4B'
+        },
+        '& a': {
+            color: '#FFFFFF',
+            textDecoration: 'none',
         }
     },
     sideMenuListItem: {
@@ -55,15 +58,16 @@ export const useStyles = makeStyles((theme) => ({
         paddingTop: 15,
         width: 95,
         height: 55,
-
     },
     sideMenuListItemLabel: {
         fontSize: 12,
-        color: '#FFFFFF',
-        textDecoration: 'none',
     },
     applicationsList: {
         paddingTop: 30,
+        '& a': {
+            color: '#000000',
+            textDecoration: 'none',
+        }
     },
     applicationsListButton: {
         marginLeft: 265,
@@ -76,27 +80,34 @@ export const useStyles = makeStyles((theme) => ({
         borderBottom: '2px solid rgb(246,246,246)',
         '& div': {
             fontSize: 16,
-        }
+        },
     },
     applicationsListHeaderId: {
         fontWeight: 600,
         paddingLeft: 50,
-        paddingRight: 20,
+        paddingRight: 10,
         width: 65,
     },
     applicationsListHeaderName: {
         fontWeight: 600,
         width: 415,
+        paddingLeft: 10,
+        paddingBottom: 2,
+        borderLeft: '1px solid #c4c4c4',
     },
     applicationsListHeaderStatus: {
         fontWeight: 600,
-        width: 110,
-        paddingLeft: 10
+        width: 120,
+        paddingLeft: 10,
+        paddingBottom: 2,
+        borderLeft: '1px solid #c4c4c4',
     },
     applicationsListHeaderExecutor: {
         fontWeight: 600,
         width: 150,
-        paddingLeft: 20
+        paddingLeft: 10,
+        paddingBottom: 2,
+        borderLeft: '1px solid #c4c4c4',
     },
     applicationsListPriority: {
         width: 5,
@@ -120,9 +131,14 @@ export const useStyles = makeStyles((theme) => ({
     applicationsListStatus: {
         borderRadius: 30,
         color: '#FFFFFF',
-        width: 82,
-        padding: '6px 13px',
+        width: 85,
+        padding: '5px 13px 7px 13px',
         marginLeft: 10,
+        marginRight: 10,
+        fontSize: 14,
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
     applicationsListExecutor: {
         width: 155,
@@ -222,7 +238,6 @@ export const useStyles = makeStyles((theme) => ({
         marginBottom: 45,
         overflow: 'auto',
     },
-
     editApplicationAddCommentTextArea: {
         height: 75,
         padding: 5,
@@ -263,6 +278,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: '8px 10px',
         borderRadius: 8,
         marginLeft: 50,
+        overflow: 'auto'
     },
     editApplicationRightBlock: {
         fontSize: 14,
@@ -287,7 +303,6 @@ export const useStyles = makeStyles((theme) => ({
         height: 20,
         width: 100,
         cursor: 'pointer',
-        transition: 'backgroundColor 0.3s ease',
         '&:hover': {
             borderRadius: 10,
             backgroundColor: '#c7e4ef',

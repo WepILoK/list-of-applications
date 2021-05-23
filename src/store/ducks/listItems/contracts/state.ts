@@ -22,7 +22,7 @@ export interface IPrioritiesOrStatus {
     name: string
 }
 
-export interface IOrder {
+export interface InItem {
     id: number
     name: string
     description: string
@@ -52,7 +52,8 @@ export interface IOrder {
 export interface IState {
     priorities: IPrioritiesOrStatus[]
     statuses: IPrioritiesOrStatus[]
-    orders: IOrder[]
-    order?: IOrder
-    status: LoadingStatus
+    listItems: InItem[]
+    item?: InItem
+    listItemsStatus: LoadingStatus
+    itemStatus: LoadingStatus
 }

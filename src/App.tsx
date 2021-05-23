@@ -8,19 +8,18 @@ import {ApplicationsList} from "./pages/ApplicationsList";
 function App() {
     const classes = useStyles()
     const history = useHistory()
-console.log(history)
+    console.log(history)
     return (
         <div className={classes.app}>
-            {/*<Switch>*/}
             <SideMenu/>
             <div>
                 <Header/>
-                <ApplicationsList/>
-                {/*<Route path='/home' component={ApplicationsList} />*/}
-
+                <Switch>
+                    {/*<Route path='/' component={Header} />*/}
+                    {/*<ApplicationsList/>*/}
+                    <Route path='/applications' component={ApplicationsList}/>
+                </Switch>
             </div>
-
-            {/*</Switch>*/}
         </div>
     );
 }

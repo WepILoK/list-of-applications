@@ -2,18 +2,22 @@ import IconButton from "@material-ui/core/IconButton";
 import React from "react";
 import CloseIcon from '@material-ui/icons/Close';
 import {useStyles} from "../pages/theme";
-import {CircularProgress} from "@material-ui/core";
+import {useHistory} from "react-router-dom";
 
 
 interface IModelBlock {
     title: string
     name?: string
-    onClose: () => void
     children: React.ReactNode
 }
 
-export const ModalBlock: React.FC<IModelBlock> = ({name, onClose, children, title}) => {
+export const ModalBlock: React.FC<IModelBlock> = ({name, children, title}) => {
     const classes = useStyles()
+    const history = useHistory()
+
+    const handleClose = (): void => {
+        history.push('/applications')
+    }
 
     return (
         <div className={classes.modalBlock}>
@@ -28,7 +32,7 @@ export const ModalBlock: React.FC<IModelBlock> = ({name, onClose, children, titl
                 }
                 <div>
                     <IconButton
-                        onClick={onClose}
+                        onClick={handleClose}
                         color='secondary'
                         arial-label='close'>
                         <CloseIcon style={{fontSize: 26}} color='secondary'/>
