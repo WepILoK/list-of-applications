@@ -3,14 +3,16 @@ import {ModalBlock} from "./ModalBlock";
 import Button from "@material-ui/core/Button";
 import {useStyles} from "../pages/theme";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCreateItem} from "../store/ducks/listItems/actionCreators";
+import {fetchCreateItem, fetchListItems} from "../store/ducks/listItems/actionCreators";
 import {CircularProgress} from "@material-ui/core";
 import {LoadingStatus} from "../store/types";
-import {selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
+import {selectItem, selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
+import {useHistory} from "react-router-dom";
 
 
 interface ICreateApplication {
     openEditItem: () => void
+    onClose: () => void
 }
 
 export interface ITextAreaValues {
@@ -18,10 +20,12 @@ export interface ITextAreaValues {
     description: string
 }
 
-export const CreateApplication: React.FC<ICreateApplication> = ({openEditItem}) => {
+export const CreateApplication: React.FC<ICreateApplication> = ({openEditItem, onClose}) => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})
     const dispatch = useDispatch()
+    const history = useHistory()
     const loadingStatus = useSelector(selectItemLoadingStatus)
+    const item = useSelector(selectItem)
     const classes = useStyles()
 
     const handleChangeName = (e: React.FormEvent<HTMLTextAreaElement>, type: 'name' | 'description'): void => {
@@ -39,12 +43,15 @@ export const CreateApplication: React.FC<ICreateApplication> = ({openEditItem}) 
         dispatch(fetchCreateItem(text))
         setText({name: '', description: ''})
         openEditItem()
-            // console.log(items[0]?.id)
 
+        if (item) {
+            history.push(`/applications/edit/${item.id}`)
+
+        }
     };
 
     return (
-        <ModalBlock title='Новая заявка'>
+        <ModalBlock title='Новая заявка' onClose={onClose}>
             <div className={classes.createApplicationForm}>
                 <div>
                     <div>Название</div>

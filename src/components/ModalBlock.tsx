@@ -8,15 +8,17 @@ import {useHistory} from "react-router-dom";
 interface IModelBlock {
     title: string
     name?: string
+    onClose: () => void
     children: React.ReactNode
 }
 
-export const ModalBlock: React.FC<IModelBlock> = ({name, children, title}) => {
+export const ModalBlock: React.FC<IModelBlock> = ({name, children, title, onClose}) => {
     const classes = useStyles()
     const history = useHistory()
 
     const handleClose = (): void => {
-        history.push('/applications')
+        onClose()
+        // history.push('/applications')
     }
 
     return (

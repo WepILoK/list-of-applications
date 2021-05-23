@@ -15,6 +15,12 @@ export const useStyles = makeStyles((theme) => ({
             borderRadius: 40,
         },
     },
+    pageTitle: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 500,
+        marginTop: 30,
+    },
     headerSearch: {
         backgroundColor: '#FFFFFF',
         borderRadius: 40,
@@ -146,7 +152,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     modalBlock: {
         height: 'calc(100vh - 65px)',
-        width: 'calc(100vw - 660px)',
+        width: 'calc(100vw - 645px)',
         position: 'fixed',
         top: 65,
         right: 0,
@@ -250,6 +256,11 @@ export const useStyles = makeStyles((theme) => ({
         backgroundColor: 'inherit'
     },
     editApplicationComments: {
+        maxWidth: 700,
+        maxHeight: 525,
+        overflow: 'auto'
+    },
+    editApplicationCommentItems: {
         marginTop: 43,
     },
     editApplicationCommentsHeader: {
@@ -274,7 +285,7 @@ export const useStyles = makeStyles((theme) => ({
     editApplicationCommentsTitle: {
         backgroundColor: '#E3E9F5',
         maxWidth: 600,
-        height: 100,
+        maxHeight: 100,
         padding: '8px 10px',
         borderRadius: 8,
         marginLeft: 50,
@@ -288,21 +299,25 @@ export const useStyles = makeStyles((theme) => ({
     },
     editApplicationStatus: {
         display: 'flex',
+        marginTop: 5,
         marginBottom: 50,
-        height: 20,
+        maxHeight: 43,
+        "& select": {
+            borderRadius: 10,
+        }
     },
     editApplicationStatusTitle: {
         display: 'flex',
         justifyContent: 'space-between',
         position: 'relative',
-        top: -6,
+        top: -9,
         left: 9,
-        paddingLeft: 4,
+        padding: '3px 3px 2px 7px',
         color: '#9A9A9A',
         fontWeight: 600,
-        height: 20,
-        width: 100,
+        maxWidth: 115,
         cursor: 'pointer',
+        maxHeight: 43,
         '&:hover': {
             borderRadius: 10,
             backgroundColor: '#c7e4ef',
@@ -310,7 +325,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     editApplicationStatusSelect: {
         position: 'relative',
-        top: -7,
+        top: -4,
         left: 9,
         maxWidth: 110,
     },
@@ -323,12 +338,35 @@ export const useStyles = makeStyles((theme) => ({
         color: '#9A9A9A',
         marginBottom: 5,
     },
+    editApplicationExecutor: {
+        display: 'flex',
+        color: 'rgb(26, 145, 218)',
+        width: 140,
+        padding: '1px 0px 0px 9px ',
+        '&:hover': {
+            borderRadius: 10,
+            backgroundColor: '#c7e4ef',
+        }
+    },
+    editApplicationExecutorSelect: {
+        position: 'relative',
+        top: 2,
+        left: 5,
+        maxWidth: 110,
+        borderRadius: 10,
+    },
     editApplicationMargin: {
         marginBottom: 40
     },
     editApplicationTags: {
+        display: 'inline-flex',
+        padding: '0 6px 1px 6px',
         height: 20,
+        color: '#9A9A9A',
         backgroundColor: '#FFFFFF',
-        marginBottom: 5
+        marginBottom: 8,
+        marginLeft: 5,
+        border: '1px solid rgb(130, 130, 130, 0.7)',
+        borderRadius: 10
     },
 }))

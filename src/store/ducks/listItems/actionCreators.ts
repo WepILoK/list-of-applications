@@ -2,9 +2,9 @@ import {IState} from "./contracts/state";
 import {
     ActionsType,
     IFetchCreateItem, IFetchItem,
-    IFetchListItems, IFetchPrioritiesOrStatuses, ISetItem, ISetItemLoadingStatus,
+    IFetchListItems, IFetchPrioritiesAndStatusesAndUsers, ISetItem, ISetItemLoadingStatus,
     ISetListItems,
-    ISetListItemsLoadingStatus, ISetPrioritiesOrStatuses
+    ISetListItemsLoadingStatus, ISetPrioritiesAndStatusesAndUsers
 } from "./contracts/actionTypes";
 import {LoadingStatus} from "../../types";
 import {ITextAreaValues} from "../../../components/CreateApplication";
@@ -43,11 +43,11 @@ export const fetchCreateItem = (payload: ITextAreaValues): IFetchCreateItem => (
     payload
 })
 
-export const fetchPrioritiesOrStatuses = (): IFetchPrioritiesOrStatuses => ({
-    type: ActionsType.FETCH_PRIORITIES_OR_STATUSES,
+export const fetchPrioritiesAndStatusesAndUsers = (): IFetchPrioritiesAndStatusesAndUsers => ({
+    type: ActionsType.FETCH_PRIORITIES_AND_STATUSES_AND_USERS,
 })
 
-export const setPrioritiesOrStatuses = (payload: {priorities: IState['priorities'], statuses: IState['statuses']}): ISetPrioritiesOrStatuses => ({
-    type: ActionsType.SET_PRIORITIES_OR_STATUSES,
+export const setPrioritiesAndStatusesAndUsers = (payload: { priorities: IState['priorities'], statuses: IState['statuses'], users: IState['users'] }): ISetPrioritiesAndStatusesAndUsers => ({
+    type: ActionsType.SET_PRIORITIES_AND_STATUSES_AND_USERS,
     payload
 })

@@ -7,11 +7,28 @@ interface IResponse<T> {
     value: T
 }
 
+interface IUpdate {
+        id: number
+        name?: string
+        description?: string
+        comment?: string
+        price?: number
+        taskTypeId?: number
+        statusId?: number
+        priorityId?: number
+        serviceId?: number
+        resolutionDatePlan?: string
+        tags?: []
+        initiatorId?: number
+        executorId?: number
+        executorGroupId?: number
+}
+
 export const instance = axios.create({
     baseURL: "http://intravision-task.test01.intravision.ru/",
 })
 
-const id = "09dbab37-2b64-47a1-8b8a-167f995a72a6"
+const id = "3f94e89b-32c3-4f0f-bd88-0079189046ab"
 
 export const Api = {
     async fetchListItems() {
@@ -20,6 +37,17 @@ export const Api = {
     },
     async fetchItem(itemId: number) {
         const {data} = await instance.get<InItem>(`api/${id}/Tasks/${itemId}`)
+        return data
+    },
+    async updateItem(item: IUpdate){
+        console.log(item)
+        const {data} = await instance.put<InItem>(`api/${id}/Tasks`,
+            {
+                id: item.id,
+                comment: item.comment,
+                statusId: item.statusId,
+                executorId: item.executorId
+            })
         return data
     },
     async createItem(postData: ITextAreaValues) {
@@ -36,6 +64,10 @@ export const Api = {
     },
     async fetchStatuses() {
         const {data} = await instance.get<IState['statuses']>(`api/${id}/Statuses`)
+        return data
+    },
+    async fetchUsers() {
+        const {data} = await instance.get<IState['users']>(`api/${id}/Users`)
         return data
     },
 }

@@ -10,10 +10,9 @@ export enum ActionsType {
     SET_ITEM = 'listItems/SET_ITEM',
     SET_LIST_ITEMS_LOADING_STATUS = 'listItems/SET_LIST_ITEMS_LOADING_STATUS',
     SET_ITEM_LOADING_STATUS = 'listItems/SET_ITEM_LOADING_STATUS',
-    CREATE_ITEM = 'listItems/CREATE_ITEM',
     FETCH_CREATE_ITEM = 'listItems/FETCH_CREATE_ITEM',
-    FETCH_PRIORITIES_OR_STATUSES = 'listItems/FETCH_PRIORITIES_OR_STATUSES',
-    SET_PRIORITIES_OR_STATUSES = 'listItems/SET_PRIORITIES_OR_STATUSES',
+    FETCH_PRIORITIES_AND_STATUSES_AND_USERS = 'listItems/FETCH_PRIORITIES_AND_STATUSES_AND_USERS',
+    SET_PRIORITIES_AND_STATUSES_AND_USERS = 'listItems/SET_PRIORITIES_AND_STATUSES_AND_USERS',
 }
 
 export interface IFetchListItems extends Action<ActionsType> {
@@ -39,13 +38,13 @@ export interface IFetchCreateItem extends Action<ActionsType> {
     payload: ITextAreaValues
 }
 
-export interface IFetchPrioritiesOrStatuses extends Action<ActionsType> {
-    type: ActionsType.FETCH_PRIORITIES_OR_STATUSES,
+export interface IFetchPrioritiesAndStatusesAndUsers extends Action<ActionsType> {
+    type: ActionsType.FETCH_PRIORITIES_AND_STATUSES_AND_USERS,
 }
 
-export interface ISetPrioritiesOrStatuses extends Action<ActionsType> {
-    type: ActionsType.SET_PRIORITIES_OR_STATUSES,
-    payload: {priorities: IState['priorities'], statuses: IState['statuses']}
+export interface ISetPrioritiesAndStatusesAndUsers extends Action<ActionsType> {
+    type: ActionsType.SET_PRIORITIES_AND_STATUSES_AND_USERS,
+    payload: {priorities: IState['priorities'], statuses: IState['statuses'], users: IState['users']}
 }
 
 export interface ISetListItemsLoadingStatus extends Action<ActionsType> {
@@ -63,8 +62,8 @@ export type IActions =
     | ISetListItemsLoadingStatus
     | ISetListItems
     | IFetchCreateItem
-    | IFetchPrioritiesOrStatuses
-    | ISetPrioritiesOrStatuses
+    | IFetchPrioritiesAndStatusesAndUsers
+    | ISetPrioritiesAndStatusesAndUsers
     | IFetchItem
     | ISetItem
     | ISetItemLoadingStatus

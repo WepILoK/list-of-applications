@@ -6,6 +6,7 @@ import {IState} from "./contracts/state";
 const initialListItemsState: IState = {
     priorities: [],
     statuses: [],
+    users: [],
     listItems: [],
     item: undefined,
     listItemsStatus: LoadingStatus.NEVER,
@@ -28,9 +29,10 @@ export const listItemsReducer = produce((draft: Draft<IState>, action: IActions)
             draft.item = action.payload
             draft.itemStatus = LoadingStatus.LOADED
             break;
-        case ActionsType.SET_PRIORITIES_OR_STATUSES:
+        case ActionsType.SET_PRIORITIES_AND_STATUSES_AND_USERS:
             draft.priorities = action.payload.priorities
             draft.statuses = action.payload.statuses
+            draft.users = action.payload.users
             draft.listItemsStatus = LoadingStatus.LOADED
             break;
         default:

@@ -17,3 +17,9 @@ export const selectListItemsLoadingStatus = (state: RootState): IState['listItem
 
 export const selectStatuses = (state: RootState): IState['statuses'] =>
     selectListItemsState(state).statuses
+
+export const selectPriorities = (state: RootState): IState['priorities'] =>
+    selectListItemsState(state).priorities
+
+export const selectUsers = (state: RootState): IState['users'] =>
+    selectListItemsState(state).users

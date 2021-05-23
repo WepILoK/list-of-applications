@@ -1,36 +1,38 @@
 import React from "react";
 import {useStyles} from "../pages/theme";
 import {IReturnType} from "../pages/ApplicationsList";
+import {IData} from "../store/ducks/listItems/contracts/state";
 
 
 interface InItemsList {
     id: number
     name: string
-    statusId?: number
-    statusName?: string
-    statusRgb?: string
-    priorityId?: number
-    priorityName?: string
-    initiatorName?: string
-    prioritySelected: (priorityId: number | undefined) => IReturnType | undefined
+    priorities: IData[]
+    statusId: number
+    statusName: string
+    statusRgb: string
+    priorityId: number
+    priorityName: string
+    initiatorName: string
+    prioritySelected: (priorityId: number | undefined, array: IData[]) => IReturnType
 }
 
 export const Application: React.FC<InItemsList> = ({
-                                                     id,
-                                                     initiatorName,
-                                                     name,
-                                                     statusName,
-                                                     statusRgb,
-                                                     priorityId,
-                                                     statusId,
-                                                     prioritySelected
-                                                 }) => {
+                                                       id,
+                                                       initiatorName,
+                                                       name,
+                                                       statusName,
+                                                       statusRgb,
+                                                       priorityId,
+                                                       prioritySelected,
+                                                       priorities
+                                                   }) => {
     const classes = useStyles()
 
     return (
         <div className={classes.applicationsListItem}>
             <div className={classes.applicationsListPriority}
-                 style={{backgroundColor: `${prioritySelected(priorityId)?.rgb}`}}/>
+                 style={{backgroundColor: `${prioritySelected(priorityId, priorities).rgb}`}}/>
             <div className={classes.applicationsListId}>
                 {id}
             </div>

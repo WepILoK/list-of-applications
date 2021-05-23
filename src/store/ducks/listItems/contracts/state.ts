@@ -16,9 +16,9 @@ interface IComment {
     newFieldValue: string
 }
 
-export interface IPrioritiesOrStatus {
-    rgb: string
+export interface IData {
     id: number
+    rgb?: string
     name: string
 }
 
@@ -26,32 +26,33 @@ export interface InItem {
     id: number
     name: string
     description: string
-    createdAt?: string
-    updatedAt?: string
-    price?: number
-    taskTypeId?: number
-    taskTypeName?: string
-    statusId?: number
-    statusName?: string
-    statusRgb?: string
-    priorityId?: number
-    priorityName?: string
-    serviceName?: string
-    serviceId?: number
-    resolutionDatePlan?: string
-    tags?: ITags[]
-    initiatorId?: number
-    initiatorName?: string
-    executorId?: string
-    executorName?: string
-    executorGroupId?: number
-    executorGroupName?: string
-    lifetimeItems?: IComment[]
+    createdAt: string
+    updatedAt: string
+    price: number
+    taskTypeId: number
+    taskTypeName: string
+    statusId: number
+    statusName: string
+    statusRgb: string
+    priorityId: number
+    priorityName: string
+    serviceName: string
+    serviceId: number
+    resolutionDatePlan: string
+    tags: ITags[]
+    initiatorId: number
+    initiatorName: string
+    executorId: number
+    executorName: string
+    executorGroupId: number
+    executorGroupName: string
+    lifetimeItems: IComment[]
 }
 
 export interface IState {
-    priorities: IPrioritiesOrStatus[]
-    statuses: IPrioritiesOrStatus[]
+    priorities: IData[]
+    statuses: IData[]
+    users: IData[]
     listItems: InItem[]
     item?: InItem
     listItemsStatus: LoadingStatus

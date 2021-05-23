@@ -9,7 +9,7 @@ import {
     setItemLoadingStatus,
     setListItems,
     setListItemsLoadingStatus,
-    setPrioritiesOrStatuses
+    setPrioritiesAndStatusesAndUsers
 } from "./actionCreators";
 
 export function* fetchListItemsRequest() {
@@ -45,7 +45,8 @@ export function* fetchPrioritiesOrStatusesRequest() {
         yield put(setListItemsLoadingStatus(LoadingStatus.LOADING))
         const priorities: IState['priorities'] = yield call(Api.fetchPriorities)
         const statuses: IState['statuses'] = yield call(Api.fetchStatuses)
-        yield put(setPrioritiesOrStatuses({priorities, statuses}))
+        const users: IState['users'] = yield call(Api.fetchUsers)
+        yield put(setPrioritiesAndStatusesAndUsers({priorities, statuses, users}))
     } catch (error) {
         yield put(setListItemsLoadingStatus(LoadingStatus.ERROR))
     }
@@ -54,6 +55,6 @@ export function* fetchPrioritiesOrStatusesRequest() {
 export function* listItemsSaga() {
     yield takeLatest(ActionsType.FETCH_LIST_ITEMS, fetchListItemsRequest)
     yield takeLatest(ActionsType.FETCH_CREATE_ITEM, fetchCreateItemsRequest)
-    yield takeLatest(ActionsType.FETCH_PRIORITIES_OR_STATUSES, fetchPrioritiesOrStatusesRequest)
+    yield takeLatest(ActionsType.FETCH_PRIORITIES_AND_STATUSES_AND_USERS, fetchPrioritiesOrStatusesRequest)
     yield takeLatest(ActionsType.FETCH_ITEM, fetchItemRequest)
 }

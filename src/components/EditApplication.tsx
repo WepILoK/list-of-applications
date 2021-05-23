@@ -1,68 +1,89 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import {useParams, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {ModalBlock} from "./ModalBlock";
-import {Button, Select} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import {useStyles} from "../pages/theme";
-import {selectItem, selectStatuses} from "../store/ducks/listItems/selectors";
+import {selectItem, selectStatuses, selectUsers} from "../store/ducks/listItems/selectors";
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
 import {fetchItem, setItem} from "../store/ducks/listItems/actionCreators";
+import {IData} from "../store/ducks/listItems/contracts/state";
+import {IReturnType} from "../pages/ApplicationsList";
+import {Api} from "../api/api";
 
+interface IEditApplication {
+    selectById: (priorityId: number | undefined, array: IData[]) => IReturnType
+}
 
-export const EditApplication: React.FC = () => {
+export const EditApplication: React.FC<IEditApplication> = ({selectById}) => {
     const classes = useStyles()
+
     const item = useSelector(selectItem)
-    const [status, setStatus] = useState<string | undefined>(item?.statusName)
-    const [editStatus, setEditStatus] = useState(false)
-    const dispatch = useDispatch()
     const statuses = useSelector(selectStatuses)
+    const users = useSelector(selectUsers)
+
+    const dispatch = useDispatch()
+    const history = useHistory()
 
     const params: { id: string } = useParams();
     const itemId = Number(params.id)
 
-    const handleChange = (event: React.ChangeEvent<{ status?: string, value: unknown }>) => {
+    const [status, setStatus] = useState<IReturnType>({
+        name: item?.statusName, rgb: item?.statusRgb, id: item?.serviceId
+    })
+    const [executor, setExecutor] = useState<IReturnType>({
+        name: item?.statusName, id: item?.executorId
+    })
+    const [editStatus, setEditStatus] = useState(false)
+    const [editExecutor, setEditExecutor] = useState(false)
+    const [text, setText] = useState<string>('')
+
+    const handleChangeStatus = (event: React.ChangeEvent<{ value: unknown }>) => {
         toggleEditStatus()
-        const name = event.target.status;
-        setStatus(name);
+        const value = Number(event.target.value)
+        setStatus(selectById(value, statuses));
     };
+
+    const handleChangeExecutor = (event: React.ChangeEvent<{ value: unknown }>) => {
+        toggleEditExecutor()
+        const value = Number(event.target.value)
+        setExecutor(selectById(value, users));
+    };
+
+    const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>): void => {
+        if (e.currentTarget) {
+            setText(e.currentTarget.value)
+        }
+    }
 
     const toggleEditStatus = () => {
         setEditStatus(!editStatus)
     }
+    const toggleEditExecutor = () => {
+        setEditExecutor(!editExecutor)
+    }
+
+    const saveItem = () => {
+        Api.updateItem({id: itemId, comment: text, statusId: status.id, executorId: executor.id})
+    }
+
+    const onClose = () => {
+        history.push('/applications')
+    }
 
     useEffect(() => {
         dispatch(fetchItem(itemId))
-
+        history.push(`/applications/edit/${itemId}`)
         return () => {
             dispatch(setItem(undefined))
         }
     }, [itemId])
 
-
-    const obj = {
-        "id": 0,
-        "name": "string",
-        "description": "string",
-        "comment": "string",
-        "price": 0,
-        "taskTypeId": 0,
-        "statusId": 0,
-        "priorityId": 0,
-        "serviceId": 0,
-        "resolutionDatePlan": "2021-05-20T10:53:34.557Z",
-        "tags": [
-            0
-        ],
-        "initiatorId": 0,
-        "executorId": 0,
-        "executorGroupId": 0
-    }
-
     if (!item) {
         return null
     } else {
         return (
-            <ModalBlock title={`№ ${item.id}`} name={item.name}>
+            <ModalBlock title={`№ ${item.id}`} name={item.name} onClose={onClose}>
                 <div className={classes.editApplication}>
                     <div className={classes.editApplicationLeftBlock}>
                         <div>
@@ -75,54 +96,53 @@ export const EditApplication: React.FC = () => {
                         </div>
                         <div>
                         <textarea className={classes.editApplicationAddCommentTextArea}
+                                  value={text}
+                                  onChange={handleChangeTextarea}
                                   placeholder={'Добавление коментариев'}/>
                             <div>
-                                <Button variant="contained" color="primary">
+                                <Button onClick={saveItem} variant="contained" color="primary">
                                     Сохранить
                                 </Button>
                             </div>
                         </div>
-                        {item.lifetimeItems && item.lifetimeItems.map(obj =>
-                            <div key={obj.id} className={classes.editApplicationComments}>
-                                <div className={classes.editApplicationCommentsHeader}>
-                                    <div className={classes.editApplicationCommentsAvatar}/>
-                                    <div>
-                                        <div className={classes.editApplicationCommentsAuthor}>
-                                            {obj.userName}
-                                        </div>
-                                        <div className={classes.editApplicationCommentsTime}>
-                                            {obj.createdAt}
+                        <div className={classes.editApplicationComments}>
+                            {item.lifetimeItems && item.lifetimeItems.map(obj =>
+                                <div key={obj.id} className={classes.editApplicationCommentItems}>
+                                    <div className={classes.editApplicationCommentsHeader}>
+                                        <div className={classes.editApplicationCommentsAvatar}/>
+                                        <div>
+                                            <div className={classes.editApplicationCommentsAuthor}>
+                                                {obj.userName}
+                                            </div>
+                                            <div className={classes.editApplicationCommentsTime}>
+                                                {obj.createdAt}
+                                            </div>
                                         </div>
                                     </div>
+                                    <div className={classes.editApplicationCommentsTitle}>
+                                        {obj.comment}
+                                    </div>
                                 </div>
-                                <div className={classes.editApplicationCommentsTitle}>
-                                    {obj.comment}
-                                </div>
-                            </div>
-                        )}
-
+                            )}
+                        </div>
                     </div>
                     <div className={classes.editApplicationRightBlock}>
                         <div className={classes.editApplicationStatus}>
                             <div className={classes.editApplicationStatusIcon}
-                                 style={{backgroundColor: `${item.statusRgb}`}}/>
-                            {!editStatus ?
+                                 style={{backgroundColor: `${status.rgb ? status.rgb : item.statusRgb}`}}/>
+                            {editStatus ? (<select
+                                className={classes.editApplicationStatusSelect}
+                                onChange={handleChangeStatus}>
+                                <option selected disabled/>
+                                {statuses.map(obj =>
+                                    <option key={obj.id} value={obj.id}>
+                                        {obj.name}
+                                    </option>)}
+                            </select>) : (
                                 <div onClick={toggleEditStatus} className={classes.editApplicationStatusTitle}>
-                                    {item.statusName}
+                                    {status.name ? status.name : item.statusName}
                                     <ArrowDownIcon/>
-                                </div>
-                                : <Select
-                                    className={classes.editApplicationStatusSelect}
-                                    native
-                                    value={status}
-                                    onChange={handleChange}>
-                                    {statuses.map(obj =>
-                                        <option key={obj.id} value={obj.id}>
-                                            {obj.name}
-                                        </option>)}
-                                </Select>
-                            }
-
+                                </div>)}
                         </div>
                         <div className={classes.editApplicationMargin}>
                             <div className={classes.editApplicationHead}>
@@ -140,7 +160,20 @@ export const EditApplication: React.FC = () => {
                             <div className={classes.editApplicationHead}>
                                 Исполнитель
                             </div>
-                            <div>{item.executorName}</div>
+                            {editExecutor ? (<select
+                                className={classes.editApplicationExecutorSelect}
+                                onChange={handleChangeExecutor}>
+                                <option selected value=""/>
+                                {users.map(obj =>
+                                    <option key={obj.id} value={obj.id}>
+                                        {obj.name}
+                                    </option>)}
+                            </select>) : (
+                                <div onClick={toggleEditExecutor} className={classes.editApplicationExecutor}>
+                                    {executor.name ? executor.name : item.executorName}
+                                    <ArrowDownIcon/>
+                                </div>
+                            )}
                         </div>
                         <div className={classes.editApplicationMargin}>
                             <div className={classes.editApplicationHead}>
@@ -159,7 +192,7 @@ export const EditApplication: React.FC = () => {
                                 Теги
                             </div>
                             <div>{item.tags?.map(item =>
-                                <div className={classes.editApplicationTags}>
+                                <div key={item.id} className={classes.editApplicationTags}>
                                     {item.name}
                                 </div>
                             )}</div>
