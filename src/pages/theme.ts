@@ -152,7 +152,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     modalBlock: {
         height: 'calc(100vh - 65px)',
-        width: 'calc(99vw - 645px)',
+        width: 'calc(100vw - 677px)',
         position: 'fixed',
         top: 65,
         right: 0,
