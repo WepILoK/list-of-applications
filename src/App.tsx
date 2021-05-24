@@ -17,7 +17,7 @@ function App() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchPrioritiesAndStatusesAndUsers())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className={classes.app}>

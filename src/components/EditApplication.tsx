@@ -1,39 +1,41 @@
-import React, { useEffect, useState} from "react";
-import {useParams, useHistory} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useHistory} from 'react-router-dom';
+import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {ModalBlock} from "./ModalBlock";
 import {Button} from "@material-ui/core";
 import {useStyles} from "../pages/theme";
-import {selectItem, selectStatuses, selectUsers} from "../store/ducks/listItems/selectors";
+import {selectItem, selectItemLoadedStatus, selectStatuses, selectUsers} from "../store/ducks/listItems/selectors";
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
-import {fetchItem, setItem} from "../store/ducks/listItems/actionCreators";
-import {IData} from "../store/ducks/listItems/contracts/state";
+import {fetchItem, setItem, updateItem} from "../store/ducks/listItems/actionCreators";
+import {IData, InItem} from "../store/ducks/listItems/contracts/state";
 import {IReturnType} from "../pages/ApplicationsList";
-import {Api} from "../api/api";
+
 
 interface IEditApplication {
     selectById: (priorityId: number | undefined, array: IData[]) => IReturnType
+    selectedItem?: InItem
 }
 
-export const EditApplication: React.FC<IEditApplication> = ({selectById}) => {
+
+export const EditApplication: React.FC<IEditApplication> = ({selectById, selectedItem}) => {
     const classes = useStyles()
 
     const item = useSelector(selectItem)
     const statuses = useSelector(selectStatuses)
     const users = useSelector(selectUsers)
-
+    const loadingStatus = useSelector(selectItemLoadedStatus)
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const params: { id: string } = useParams();
-    const itemId = Number(params.id)
-
     const [status, setStatus] = useState<IReturnType>({
-        name: item?.statusName, rgb: item?.statusRgb, id: item?.serviceId
+        name: item?.statusName, rgb: item?.statusRgb, id: item?.statusId
     })
     const [executor, setExecutor] = useState<IReturnType>({
-        name: item?.statusName, id: item?.executorId
+        name: item?.executorName, id: item?.executorId
     })
+    const params: { id: string } = useParams();
+    const itemId = Number(params.id)
     const [editStatus, setEditStatus] = useState(false)
     const [editExecutor, setEditExecutor] = useState(false)
     const [text, setText] = useState<string>('')
@@ -64,26 +66,27 @@ export const EditApplication: React.FC<IEditApplication> = ({selectById}) => {
     }
 
     const saveItem = () => {
-        Api.updateItem({id: itemId, comment: text, statusId: status.id, executorId: executor.id})
+        history.push('/applications')
+        if (status.id && executor.id) {
+            dispatch(updateItem({id: itemId, comment: text, statusId: status.id, executorId: executor.id}))
+        }
+        console.log({id: itemId, comment: text, statusId: status.id, executorId: executor.id}, selectedItem?.id)
+        setText('')
     }
 
-    const onClose = () => {
-        history.push('/applications')
-    }
 
     useEffect(() => {
         dispatch(fetchItem(itemId))
-        history.push(`/applications/edit/${itemId}`)
+
         return () => {
+            history.push('/applications')
             dispatch(setItem(undefined))
         }
-    }, [itemId])
+    }, [itemId, dispatch])
 
-    if (!item) {
-        return null
-    } else {
+    if (item && loadingStatus) {
         return (
-            <ModalBlock title={`№ ${item.id}`} name={item.name} onClose={onClose}>
+            <ModalBlock title={`№ ${item.id}`} name={item.name}>
                 <div className={classes.editApplication}>
                     <div className={classes.editApplicationLeftBlock}>
                         <div>
@@ -202,4 +205,5 @@ export const EditApplication: React.FC<IEditApplication> = ({selectById}) => {
             </ModalBlock>
         )
     }
+    return null
 }

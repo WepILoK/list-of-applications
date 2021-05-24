@@ -1,32 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
+import {useHistory} from 'react-router-dom';
+
 import {ModalBlock} from "./ModalBlock";
 import Button from "@material-ui/core/Button";
 import {useStyles} from "../pages/theme";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchCreateItem, fetchListItems} from "../store/ducks/listItems/actionCreators";
+import {createItem} from "../store/ducks/listItems/actionCreators";
 import {CircularProgress} from "@material-ui/core";
 import {LoadingStatus} from "../store/types";
-import {selectItem, selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
-import {useHistory} from "react-router-dom";
+import {selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
+import {InItem} from "../store/ducks/listItems/contracts/state";
+import {Api} from "../api/api";
 
-
-interface ICreateApplication {
-    openEditItem: () => void
-    onClose: () => void
-}
 
 export interface ITextAreaValues {
     name: string
     description: string
 }
 
-export const CreateApplication: React.FC<ICreateApplication> = ({openEditItem, onClose}) => {
+export const CreateApplication: React.FC = () => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})
     const dispatch = useDispatch()
-    const history = useHistory()
     const loadingStatus = useSelector(selectItemLoadingStatus)
-    const item = useSelector(selectItem)
     const classes = useStyles()
+    const history = useHistory()
 
     const handleChangeName = (e: React.FormEvent<HTMLTextAreaElement>, type: 'name' | 'description'): void => {
         if (e.currentTarget) {
@@ -39,19 +36,15 @@ export const CreateApplication: React.FC<ICreateApplication> = ({openEditItem, o
         }
     }
 
-    const onSubmit = () => {
-        dispatch(fetchCreateItem(text))
+    const onSubmit = async () => {
+        const id: InItem['id'] = await Api.createItem(text)
+        dispatch(createItem({...text, id }))
         setText({name: '', description: ''})
-        openEditItem()
-
-        if (item) {
-            history.push(`/applications/edit/${item.id}`)
-
-        }
+        history.push(`/applications/edit/${id}`)
     };
 
     return (
-        <ModalBlock title='Новая заявка' onClose={onClose}>
+        <ModalBlock title='Новая заявка'>
             <div className={classes.createApplicationForm}>
                 <div>
                     <div>Название</div>

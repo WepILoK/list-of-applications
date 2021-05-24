@@ -1,10 +1,9 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {LoadingStatus} from "../../types";
-import {IState, InItem} from "./contracts/state";
+import {IState} from "./contracts/state";
 import {Api} from "../../../api/api";
-import {ActionsType, IFetchCreateItem, IFetchItem} from "./contracts/actionTypes";
+import {ActionsType, IFetchCreateItem, IFetchItem, IUpdateItem} from "./contracts/actionTypes";
 import {
-    fetchItem,
     setItem,
     setItemLoadingStatus,
     setListItems,
@@ -26,20 +25,12 @@ export function* fetchItemRequest({payload}: IFetchItem) {
         yield put(setItemLoadingStatus(LoadingStatus.LOADING))
         const item: IState['item'] = yield call(Api.fetchItem, payload)
         yield put(setItem(item))
+        yield put(setItemLoadingStatus(LoadingStatus.LOADED))
     } catch (error) {
         yield put(setItemLoadingStatus(LoadingStatus.ERROR))
     }
 }
 
-export function* fetchCreateItemsRequest({payload}: IFetchCreateItem) {
-    try {
-        yield put(setItemLoadingStatus(LoadingStatus.LOADING))
-        const id: InItem['id'] = yield call(Api.createItem, payload)
-        yield put(fetchItem(id))
-    } catch (error) {
-        yield put(setItemLoadingStatus(LoadingStatus.ERROR))
-    }
-}
 export function* fetchPrioritiesOrStatusesRequest() {
     try {
         yield put(setListItemsLoadingStatus(LoadingStatus.LOADING))
@@ -52,9 +43,19 @@ export function* fetchPrioritiesOrStatusesRequest() {
     }
 }
 
+export function* updateItemRequest({payload}: IUpdateItem) {
+    try {
+        yield put(setItemLoadingStatus(LoadingStatus.LOADING))
+        yield call(Api.updateItem, payload)
+        yield put(setItemLoadingStatus(LoadingStatus.LOADED))
+    } catch (error) {
+        yield put(setListItemsLoadingStatus(LoadingStatus.ERROR))
+    }
+}
+
 export function* listItemsSaga() {
     yield takeLatest(ActionsType.FETCH_LIST_ITEMS, fetchListItemsRequest)
-    yield takeLatest(ActionsType.FETCH_CREATE_ITEM, fetchCreateItemsRequest)
     yield takeLatest(ActionsType.FETCH_PRIORITIES_AND_STATUSES_AND_USERS, fetchPrioritiesOrStatusesRequest)
     yield takeLatest(ActionsType.FETCH_ITEM, fetchItemRequest)
+    yield takeLatest(ActionsType.UPDATE_ITEM, updateItemRequest)
 }
