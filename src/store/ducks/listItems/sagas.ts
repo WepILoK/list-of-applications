@@ -2,7 +2,7 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import {LoadingStatus} from "../../types";
 import {IState} from "./contracts/state";
 import {Api} from "../../../api/api";
-import {ActionsType, IFetchCreateItem, IFetchItem, IUpdateItem} from "./contracts/actionTypes";
+import {ActionsType, IFetchItem, IUpdateItem} from "./contracts/actionTypes";
 import {
     setItem,
     setItemLoadingStatus,

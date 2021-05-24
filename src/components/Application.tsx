@@ -1,20 +1,24 @@
 import React from "react";
-import {useStyles} from "../pages/theme";
-import {IReturnType} from "../pages/ApplicationsList";
-import {IData, InItem} from "../store/ducks/listItems/contracts/state";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
+
+import {useStyles} from "../pages/theme";
+
 import {setItem, setItemLoadingStatus} from "../store/ducks/listItems/actionCreators";
 import {selectPriorities} from "../store/ducks/listItems/selectors";
+
 import {LoadingStatus} from "../store/types";
+import {InItem} from "../store/ducks/listItems/contracts/state";
+
+import {selectById} from "../utils/selectById";
 
 
 interface InItemsList {
-    prioritySelected: (priorityId: number | undefined, array: IData[]) => IReturnType
     item: InItem
 }
 
-export const Application: React.FC<InItemsList> = ({item, prioritySelected}) => {
+
+export const Application: React.FC<InItemsList> = ({item}) => {
     const {id, name, statusName, statusRgb, priorityId, executorName} = item
     const classes = useStyles()
     const dispatch = useDispatch()
@@ -29,7 +33,7 @@ export const Application: React.FC<InItemsList> = ({item, prioritySelected}) => 
         <Link to={`/applications/edit/${id}`}>
             <div className={classes.applicationsListItem} onClick={onClick}>
                 <div className={classes.applicationsListPriority}
-                     style={{backgroundColor: `${prioritySelected(priorityId, priorities).rgb}`}}/>
+                     style={{backgroundColor: `${selectById(priorityId, priorities).rgb}`}}/>
                 <div className={classes.applicationsListId}>
                     {id}
                 </div>

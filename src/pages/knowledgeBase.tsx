@@ -1,4 +1,5 @@
 import React from "react";
+
 import {useStyles} from "./theme";
 
 export const KnowledgeBase: React.FC = () => {

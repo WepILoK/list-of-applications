@@ -1,15 +1,18 @@
 import React, {useState} from "react";
 import {useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+
+import {useStyles} from "../pages/theme";
+import {CircularProgress} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 import {ModalBlock} from "./ModalBlock";
-import Button from "@material-ui/core/Button";
-import {useStyles} from "../pages/theme";
-import {useDispatch, useSelector} from "react-redux";
 import {createItem} from "../store/ducks/listItems/actionCreators";
-import {CircularProgress} from "@material-ui/core";
-import {LoadingStatus} from "../store/types";
 import {selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
+
 import {InItem} from "../store/ducks/listItems/contracts/state";
+import {LoadingStatus} from "../store/types";
+
 import {Api} from "../api/api";
 
 
@@ -17,6 +20,7 @@ export interface ITextAreaValues {
     name: string
     description: string
 }
+
 
 export const CreateApplication: React.FC = () => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})

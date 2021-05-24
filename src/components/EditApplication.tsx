@@ -2,23 +2,21 @@ import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {ModalBlock} from "./ModalBlock";
-import {Button} from "@material-ui/core";
+
 import {useStyles} from "../pages/theme";
-import {selectItem, selectItemLoadedStatus, selectStatuses, selectUsers} from "../store/ducks/listItems/selectors";
+import {Button} from "@material-ui/core";
 import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
+
+import ruLang from 'date-fns/locale/ru'
+import format from 'date-fns/format'
+
+import {ModalBlock} from "./ModalBlock";
+import {selectItem, selectItemLoadedStatus, selectStatuses, selectUsers} from "../store/ducks/listItems/selectors";
 import {fetchItem, setItem, updateItem} from "../store/ducks/listItems/actionCreators";
-import {IData, InItem} from "../store/ducks/listItems/contracts/state";
-import {IReturnType} from "../pages/ApplicationsList";
+import {IReturnType, selectById} from "../utils/selectById";
 
 
-interface IEditApplication {
-    selectById: (priorityId: number | undefined, array: IData[]) => IReturnType
-    selectedItem?: InItem
-}
-
-
-export const EditApplication: React.FC<IEditApplication> = ({selectById, selectedItem}) => {
+export const EditApplication: React.FC = () => {
     const classes = useStyles()
 
     const item = useSelector(selectItem)
@@ -68,9 +66,13 @@ export const EditApplication: React.FC<IEditApplication> = ({selectById, selecte
     const saveItem = () => {
         history.push('/applications')
         if (status.id && executor.id) {
-            dispatch(updateItem({id: itemId, comment: text, statusId: status.id, executorId: executor.id}))
+            dispatch(updateItem({
+                id: itemId,
+                comment: text,
+                statusId: status.id,
+                executorId: executor.id
+            }))
         }
-        console.log({id: itemId, comment: text, statusId: status.id, executorId: executor.id}, selectedItem?.id)
         setText('')
     }
 
@@ -186,9 +188,9 @@ export const EditApplication: React.FC<IEditApplication> = ({selectById, selecte
                         </div>
                         <div className={classes.editApplicationMargin}>
                             <div className={classes.editApplicationHead}>
-                                Скрок
+                                Срок
                             </div>
-                            <div>{item.resolutionDatePlan ? item.resolutionDatePlan : 'Не указано'}</div>
+                            <div>{format(new Date(item.resolutionDatePlan), 'H:mm dd MMM. yyyy г.', {locale: ruLang})}</div>
                         </div>
                         <div className={classes.editApplicationMargin}>
                             <div className={classes.editApplicationHead}>
