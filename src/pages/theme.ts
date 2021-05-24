@@ -96,7 +96,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     applicationsListHeaderName: {
         fontWeight: 600,
-        width: 415,
+        width: 430,
         paddingLeft: 10,
         paddingBottom: 2,
         borderLeft: '1px solid #c4c4c4',
@@ -131,7 +131,7 @@ export const useStyles = makeStyles((theme) => ({
         boxOrient: 'vertical',
         overflow: 'hidden',
         lineClamp: 2,
-        width: 402,
+        width: 418,
         marginRight: 13
     },
     applicationsListStatus: {
@@ -152,7 +152,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     modalBlock: {
         height: 'calc(100vh - 65px)',
-        width: 'calc(100vw - 645px)',
+        width: 'calc(99vw - 645px)',
         position: 'fixed',
         top: 65,
         right: 0,
@@ -257,7 +257,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     editApplicationComments: {
         maxWidth: 700,
-        maxHeight: 525,
+        maxHeight: 'calc(100vh - 510px)',
         overflow: 'auto'
     },
     editApplicationCommentItems: {
@@ -285,11 +285,9 @@ export const useStyles = makeStyles((theme) => ({
     editApplicationCommentsTitle: {
         backgroundColor: '#E3E9F5',
         maxWidth: 600,
-        maxHeight: 100,
         padding: '8px 10px',
         borderRadius: 8,
         marginLeft: 50,
-        overflow: 'auto'
     },
     editApplicationRightBlock: {
         fontSize: 14,
