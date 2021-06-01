@@ -7,13 +7,11 @@ import {CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 import {ModalBlock} from "./ModalBlock";
-import {createItem} from "../store/ducks/listItems/actionCreators";
-import {selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
+import {fetchCreateItem} from "../store/ducks/listItems/actionCreators";
+import {selectItem, selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
 
-import {InItem} from "../store/ducks/listItems/contracts/state";
 import {LoadingStatus} from "../store/types";
 
-import {Api} from "../api/api";
 
 
 export interface ITextAreaValues {
@@ -26,6 +24,7 @@ export const CreateApplication: React.FC = () => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})
     const dispatch = useDispatch()
     const loadingStatus = useSelector(selectItemLoadingStatus)
+    const item = useSelector(selectItem)
     const classes = useStyles()
     const history = useHistory()
 
@@ -33,18 +32,20 @@ export const CreateApplication: React.FC = () => {
         if (e.currentTarget) {
             let value = e.currentTarget.value
             if (type === 'name') {
-                setText({...text, name: value})
+                setText(prevState => {
+                    return {...prevState, name: value}})
             } else if (type === 'description') {
-                setText({...text, description: value})
+                setText(prevState => {
+                    return {...prevState, description: value}
+                })
             }
         }
     }
 
-    const onSubmit = async () => {
-        const id: InItem['id'] = await Api.createItem(text)
-        dispatch(createItem({...text, id }))
+    const onSubmit = () => {
+        dispatch(fetchCreateItem({...text}))
         setText({name: '', description: ''})
-        history.push(`/applications/edit/${id}`)
+        history.push(`/applications/edit/${item?.id}`)
     };
 
     return (

@@ -9,27 +9,19 @@ interface IResponse<T> {
 }
 
 interface IUpdate {
-        id: number
-        name?: string
-        description?: string
-        comment?: string
-        price?: number
-        taskTypeId?: number
-        statusId?: number
-        priorityId?: number
-        serviceId?: number
-        resolutionDatePlan?: string
-        tags?: []
-        initiatorId?: number
-        executorId?: number
-        executorGroupId?: number
+    id: number
+    comment: string
+    statusId: number
+    executorId: number
 }
 
 export const instance = axios.create({
     baseURL: "http://intravision-task.test01.intravision.ru/",
 })
 
-const id = "f8fbaf8b-5fb9-48f2-b77e-f0f84dc626c2"
+// const id = "f8fbaf8b-5fb9-48f2-b77e-f0f84dc626c2"
+const id = "7ccbda4f-4a66-4329-a71f-38b35addbfda"
+
 
 export const Api = {
     async fetchListItems() {
@@ -40,15 +32,13 @@ export const Api = {
         const {data} = await instance.get<InItem>(`api/${id}/Tasks/${itemId}`)
         return data
     },
-    async updateItem(item: IUpdate){
-        console.log(item)
-        const {data} = await instance.put<InItem>(`api/${id}/Tasks`,
-            {
-                id: item.id,
-                comment: item.comment,
-                statusId: item.statusId,
-                executorId: item.executorId
-            })
+    async updateItem(item: IUpdate) {
+        const {data} = await instance.put<InItem>(`api/${id}/Tasks`, {
+            id: item.id,
+            statusId: item.statusId,
+            executorId: item.executorId,
+            comment: item.comment
+        })
         return data
     },
     async createItem(postData: ITextAreaValues) {

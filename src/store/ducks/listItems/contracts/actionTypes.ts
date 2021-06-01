@@ -9,7 +9,7 @@ export enum ActionsType {
     FETCH_ITEM = 'listItems/FETCH_ITEM',
     SET_ITEM = 'listItems/SET_ITEM',
     UPDATE_ITEM = 'listItems/UPDATE_ITEM',
-    SET_LIST_ITEMS_LOADING_STATUS = 'listItems/SET_LIST_ITEMS_LOADING_STATUS',
+    SET_EDIT_ITEM_LOADING_STATUS = 'listItems/SET_EDIT_ITEM_LOADING_STATUS',
     SET_ITEM_LOADING_STATUS = 'listItems/SET_ITEM_LOADING_STATUS',
     FETCH_CREATE_ITEM = 'listItems/FETCH_CREATE_ITEM',
     CREATE_ITEM = 'listItems/CREATE_ITEM',
@@ -60,8 +60,8 @@ export interface ISetPrioritiesAndStatusesAndUsers extends Action<ActionsType> {
     payload: { priorities: IState['priorities'], statuses: IState['statuses'], users: IState['users'] }
 }
 
-export interface ISetListItemsLoadingStatus extends Action<ActionsType> {
-    type: ActionsType.SET_LIST_ITEMS_LOADING_STATUS
+export interface ISetEditItemLoadingStatus extends Action<ActionsType> {
+    type: ActionsType.SET_EDIT_ITEM_LOADING_STATUS
     payload: LoadingStatus
 }
 
@@ -72,7 +72,7 @@ export interface ISetItemLoadingStatus extends Action<ActionsType> {
 
 export type IActions =
     IFetchListItems
-    | ISetListItemsLoadingStatus
+    | ISetEditItemLoadingStatus
     | ISetListItems
     | IFetchCreateItem
     | IFetchPrioritiesAndStatusesAndUsers

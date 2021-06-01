@@ -16,8 +16,8 @@ export const selectItemLoadedStatus = (state: RootState): boolean =>
 export const selectItemLoadingStatus = (state: RootState): IState['itemStatus'] =>
     selectListItemsState(state).itemStatus
 
-export const selectListItemsLoadingStatus = (state: RootState): IState['listItemsStatus'] =>
-    selectListItemsState(state).listItemsStatus
+export const selectEditItemLoadingStatus = (state: RootState): IState['editItemStatus'] =>
+    selectListItemsState(state).editItemStatus
 
 export const selectStatuses = (state: RootState): IState['statuses'] =>
     selectListItemsState(state).statuses

@@ -10,16 +10,10 @@ export const useStyles = makeStyles((theme) => ({
     header: {
         backgroundColor: '#D2DFED',
         height: 65,
-        width: '100vw',
+        width: '1695px',
         '& .MuiOutlinedInput-root': {
             borderRadius: 40,
         },
-    },
-    pageTitle: {
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 500,
-        marginTop: 30,
     },
     headerSearch: {
         backgroundColor: '#FFFFFF',
@@ -28,6 +22,15 @@ export const useStyles = makeStyles((theme) => ({
         marginLeft: 20,
         width: 675,
         height: 40,
+    },
+    content: {
+        width: '100%'
+    },
+    pageTitle: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: 500,
+        marginTop: 30,
     },
     sideMenu: {
         position: 'sticky',
@@ -39,6 +42,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        zIndex: 1,
     },
     sideMenuLogo: {
         width: 96,
@@ -258,7 +262,8 @@ export const useStyles = makeStyles((theme) => ({
     editApplicationComments: {
         maxWidth: 700,
         maxHeight: 'calc(100vh - 510px)',
-        overflow: 'auto'
+        overflow: 'auto',
+        marginTop: '7px'
     },
     editApplicationCommentItems: {
         marginTop: 43,

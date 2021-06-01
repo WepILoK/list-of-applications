@@ -55,6 +55,6 @@ export interface IState {
     users: IData[]
     listItems: InItem[]
     item?: InItem
-    listItemsStatus: LoadingStatus
     itemStatus: LoadingStatus
+    editItemStatus: LoadingStatus
 }

@@ -1,7 +1,7 @@
 import produce, {Draft} from "immer";
 import {LoadingStatus} from "../../types";
 import {ActionsType, IActions} from "./contracts/actionTypes";
-import {InItem, IState} from "./contracts/state";
+import {IState} from "./contracts/state";
 
 const initialListItemsState: IState = {
     priorities: [],
@@ -9,26 +9,20 @@ const initialListItemsState: IState = {
     users: [],
     listItems: [],
     item: undefined,
-    listItemsStatus: LoadingStatus.NEVER,
-    itemStatus: LoadingStatus.NEVER
+    itemStatus: LoadingStatus.NEVER,
+    editItemStatus: LoadingStatus.NEVER
 }
 
 export const listItemsReducer = produce((draft: Draft<IState>, action: IActions) => {
     switch (action.type) {
         case ActionsType.SET_LIST_ITEMS:
             draft.listItems = action.payload.reverse()
-            draft.listItemsStatus = LoadingStatus.LOADED
             break;
-        case ActionsType.SET_LIST_ITEMS_LOADING_STATUS:
-            draft.listItemsStatus = action.payload
+        case ActionsType.SET_EDIT_ITEM_LOADING_STATUS:
+            draft.editItemStatus = action.payload
             break;
         case ActionsType.SET_ITEM_LOADING_STATUS:
             draft.itemStatus = action.payload
-            break;
-        case ActionsType.CREATE_ITEM:
-            draft.listItems.splice(0, 0, action.payload as InItem)
-            draft.item = action.payload as InItem
-            draft.itemStatus = LoadingStatus.LOADING
             break;
         case ActionsType.SET_ITEM:
             draft.item = action.payload
@@ -37,7 +31,6 @@ export const listItemsReducer = produce((draft: Draft<IState>, action: IActions)
             draft.priorities = action.payload.priorities
             draft.statuses = action.payload.statuses
             draft.users = action.payload.users
-            draft.listItemsStatus = LoadingStatus.LOADED
             break;
         default:
             break;

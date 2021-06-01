@@ -24,14 +24,16 @@ function App() {
             <SideMenu/>
             <div>
                 <Header/>
-                <Switch>
-                    <Route path='/applications' component={ApplicationsList}/>
-                    <Route path='/knowledgeBase' component={KnowledgeBase}/>
-                    <Route path='/staff' component={Staff}/>
-                    <Route path='/clients' component={Clients}/>
-                    <Route path='/assets' component={Assets}/>
-                    <Route path='/settings' component={Settings}/>
-                </Switch>
+                <div className={classes.content}>
+                    <Switch>
+                        <Route path='/applications' component={ApplicationsList}/>
+                        <Route path='/knowledgeBase' component={KnowledgeBase}/>
+                        <Route path='/staff' component={Staff}/>
+                        <Route path='/clients' component={Clients}/>
+                        <Route path='/assets' component={Assets}/>
+                        <Route path='/settings' component={Settings}/>
+                    </Switch>
+                </div>
             </div>
         </div>
     );

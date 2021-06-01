@@ -4,7 +4,7 @@ import {
     IFetchCreateItem, IFetchItem,
     IFetchListItems, IFetchPrioritiesAndStatusesAndUsers, ISetItem, ISetItemLoadingStatus,
     ISetListItems,
-    ISetListItemsLoadingStatus, ISetPrioritiesAndStatusesAndUsers, IUpdateItem
+    ISetEditItemLoadingStatus, ISetPrioritiesAndStatusesAndUsers, IUpdateItem
 } from "./contracts/actionTypes";
 import {LoadingStatus} from "../../types";
 import {ITextAreaValues} from "../../../components/CreateApplication";
@@ -33,8 +33,8 @@ export const updateItem = (payload: {id: number, comment: string, statusId: numb
     payload
 })
 
-export const setListItemsLoadingStatus = (payload: LoadingStatus): ISetListItemsLoadingStatus => ({
-    type: ActionsType.SET_LIST_ITEMS_LOADING_STATUS,
+export const setEditItemLoadingStatus = (payload: LoadingStatus): ISetEditItemLoadingStatus => ({
+    type: ActionsType.SET_EDIT_ITEM_LOADING_STATUS,
     payload
 })
 
