@@ -4,5 +4,4 @@ export enum LoadingStatus {
     ERROR = 'ERROR',
     NEVER = 'NEVER',
     EDIT = 'EDIT',
-    SUCCESS = 'SUCCESS'
 }

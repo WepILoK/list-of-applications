@@ -1,6 +1,5 @@
 import {RootState} from "../../store";
 import {IState} from "./contracts/state";
-import {LoadingStatus} from "../../types";
 
 export const selectListItemsState = (state: RootState): IState => state.listItems
 
@@ -10,14 +9,8 @@ export const selectListItems = (state: RootState): IState['listItems'] =>
 export const selectItem = (state: RootState): IState['item'] =>
     selectListItemsState(state).item
 
-export const selectItemLoadedStatus = (state: RootState): boolean =>
-    selectListItemsState(state).itemStatus === LoadingStatus.LOADED
-
 export const selectItemLoadingStatus = (state: RootState): IState['itemStatus'] =>
     selectListItemsState(state).itemStatus
-
-export const selectItemEditStatus = (state: RootState): boolean =>
-    selectListItemsState(state).itemStatus === LoadingStatus.EDIT
 
 export const selectStatuses = (state: RootState): IState['statuses'] =>
     selectListItemsState(state).statuses

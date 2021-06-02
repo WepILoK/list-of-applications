@@ -86,6 +86,7 @@ export const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         margin: 'auto',
+        cursor: 'pointer',
         height: 55,
         borderBottom: '2px solid rgb(246,246,246)',
         '& div': {

@@ -19,8 +19,7 @@ export const instance = axios.create({
     baseURL: "http://intravision-task.test01.intravision.ru/",
 })
 
-// const id = "f8fbaf8b-5fb9-48f2-b77e-f0f84dc626c2"
-const id = "7ccbda4f-4a66-4329-a71f-38b35addbfda"
+const id = "f8fbaf8b-5fb9-48f2-b77e-f0f84dc626c2"
 
 
 export const Api = {

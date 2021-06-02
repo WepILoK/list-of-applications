@@ -1,13 +1,12 @@
 import React from "react";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
 import {useStyles} from "../../theme";
 
-import {fetchItem, setItem, setItemLoadingStatus} from "../../../store/ducks/listItems/actionCreators";
+import {fetchItem} from "../../../store/ducks/listItems/actionCreators";
 import {selectPriorities} from "../../../store/ducks/listItems/selectors";
 
-import {LoadingStatus} from "../../../store/types";
 import {InItem} from "../../../store/ducks/listItems/contracts/state";
 
 import {selectById} from "../../../utils/selectById";
@@ -25,9 +24,11 @@ export const Application: React.FC<InItemsList> = ({item}) => {
     const priorities = useSelector(selectPriorities)
     const history = useHistory()
 
-    const onClick = async () => {
-        await dispatch(fetchItem(id))
-        history.push(`/applications/edit/${id}`)
+    const onClick = () => {
+        dispatch(fetchItem(id))
+        setTimeout(() => {
+            history.push(`/applications/edit/${id}`)
+        }, 1500);
     }
 
     return (

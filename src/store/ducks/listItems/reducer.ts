@@ -1,14 +1,14 @@
 import produce, {Draft} from "immer";
 import {LoadingStatus} from "../../types";
 import {ActionsType, IActions} from "./contracts/actionTypes";
-import {InItem, IState} from "./contracts/state";
+import {IState} from "./contracts/state";
 
 const initialListItemsState: IState = {
     priorities: [],
     statuses: [],
     users: [],
     listItems: [],
-    item: {} as InItem,
+    item: undefined,
     itemStatus: LoadingStatus.NEVER,
 }
 

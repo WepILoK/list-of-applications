@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useHistory} from 'react-router-dom';
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
 import {useStyles} from "../../theme";
@@ -10,22 +9,17 @@ import ruLang from 'date-fns/locale/ru'
 import format from 'date-fns/format'
 
 import {ModalBlock} from "./ModalBlock";
-import {
-    selectItem, selectItemEditStatus,
-    selectStatuses,
-    selectUsers
-} from "../../../store/ducks/listItems/selectors";
-import {fetchItem, setItem, updateItem} from "../../../store/ducks/listItems/actionCreators";
+import {selectItem, selectStatuses, selectUsers} from "../../../store/ducks/listItems/selectors";
+import {fetchItem, updateItem} from "../../../store/ducks/listItems/actionCreators";
 import {IReturnType, selectById} from "../../../utils/selectById";
 
 
 export const EditApplication: React.FC = () => {
+    const item = useSelector(selectItem)
     const classes = useStyles()
 
-    const item = useSelector(selectItem)
     const statuses = useSelector(selectStatuses)
     const users = useSelector(selectUsers)
-    const editStatus = useSelector(selectItemEditStatus)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -40,12 +34,6 @@ export const EditApplication: React.FC = () => {
     const [text, setText] = useState<string>('')
 
     const updateData = () => {
-            console.log('und', {
-                id: itemId,
-                comment: text,
-                statusId: status.id,
-                executorId: executor.id
-            })
         if (status.id && executor.id) {
             dispatch(updateItem({
                 id: itemId,
@@ -59,15 +47,29 @@ export const EditApplication: React.FC = () => {
 
     const handleChangeStatus = (event: React.ChangeEvent<{ value: unknown }>) => {
         const value = Number(event.target.value)
-        console.log(status)
+        if (executor.id) {
+            dispatch(updateItem({
+                id: itemId,
+                comment: text,
+                statusId: value,
+                executorId: executor.id
+            }))
+        }
         setStatus(selectById(value, statuses));
-        updateData()
+        console.log(status)
     };
 
     const handleChangeExecutor = (event: React.ChangeEvent<{ value: unknown }>) => {
         const value = Number(event.target.value)
-        setExecutor(selectById(value, users));
-        updateData()
+        if (status.id) {
+            dispatch(updateItem({
+                id: itemId,
+                comment: text,
+                statusId: status.id,
+                executorId: value
+            }))
+        }
+        setExecutor(selectById(value, users))
     };
 
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>): void => {
@@ -78,13 +80,12 @@ export const EditApplication: React.FC = () => {
 
 
     useEffect(() => {
+        history.push(`/applications/edit/${item?.id}`)
         dispatch(fetchItem(itemId))
+    }, [itemId, item?.statusId, executor])
 
 
-
-    }, [editStatus])
-
-    if (item) {
+    if (item?.id === itemId) {
         return (
             <ModalBlock title={`№ ${item.id}`} name={item.name}>
                 <div className={classes.editApplication}>
@@ -132,9 +133,7 @@ export const EditApplication: React.FC = () => {
                     <div className={classes.editApplicationRightBlock}>
                         <div className={classes.editApplicationStatus}>
                             <div className={classes.editApplicationStatusIcon}
-                                 style={{backgroundColor: `${status.rgb ? status.rgb : item.statusRgb}`}}/>
-                            {/*${status.rgb ? status.rgb : item.statusRgb}*/}
-                            {/*{item.statusRgb ? item.statusRgb : status.rgb}*/}
+                                 style={{backgroundColor: `${item.statusRgb ? item.statusRgb : status.rgb}`}}/>
                             <select
                                 className={classes.editApplicationStatusSelect}
                                 onChange={handleChangeStatus}>
