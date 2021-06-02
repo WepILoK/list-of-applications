@@ -12,6 +12,7 @@ import {ModalBlock} from "./ModalBlock";
 import {selectItem, selectStatuses, selectUsers} from "../../../store/ducks/listItems/selectors";
 import {fetchItem, updateItem} from "../../../store/ducks/listItems/actionCreators";
 import {IReturnType, selectById} from "../../../utils/selectById";
+import {Api} from "../../../api/api";
 
 
 export const EditApplication: React.FC = () => {
@@ -33,42 +34,39 @@ export const EditApplication: React.FC = () => {
     const itemId = Number(params.id)
     const [text, setText] = useState<string>('')
 
-    const updateData = () => {
-        if (status.id && executor.id) {
+    const updateData = async () => {
+        const itemData = await Api.fetchItem(itemId)
             dispatch(updateItem({
                 id: itemId,
                 comment: text,
-                statusId: status.id,
-                executorId: executor.id
+                statusId: itemData.statusId,
+                executorId: itemData.executorId
             }))
-        }
         setText('')
     }
 
-    const handleChangeStatus = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChangeStatus = async (event: React.ChangeEvent<{ value: unknown }>) => {
         const value = Number(event.target.value)
-        if (executor.id) {
+        const itemData = await Api.fetchItem(itemId)
             dispatch(updateItem({
                 id: itemId,
                 comment: text,
                 statusId: value,
-                executorId: executor.id
+                executorId: itemData.executorId
             }))
-        }
         setStatus(selectById(value, statuses));
         console.log(status)
     };
 
-    const handleChangeExecutor = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const handleChangeExecutor = async (event: React.ChangeEvent<{ value: unknown }>) => {
         const value = Number(event.target.value)
-        if (status.id) {
-            dispatch(updateItem({
+        const itemData = await Api.fetchItem(itemId)
+        dispatch(updateItem({
                 id: itemId,
                 comment: text,
-                statusId: status.id,
+                statusId: itemData.statusId,
                 executorId: value
             }))
-        }
         setExecutor(selectById(value, users))
     };
 
@@ -82,7 +80,7 @@ export const EditApplication: React.FC = () => {
     useEffect(() => {
         history.push(`/applications/edit/${item?.id}`)
         dispatch(fetchItem(itemId))
-    }, [itemId, item?.statusId, executor])
+    }, [itemId, executor.id, text, dispatch, status.id])
 
 
     if (item?.id === itemId) {
