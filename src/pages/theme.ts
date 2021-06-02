@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     header: {
         backgroundColor: '#D2DFED',
         height: 65,
-        width: '1695px',
+        width: '2075px',
         '& .MuiOutlinedInput-root': {
             borderRadius: 40,
         },
