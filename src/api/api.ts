@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {IState, InItem} from "../store/ducks/listItems/contracts/state";
-import {ITextAreaValues} from "../components/CreateApplication";
+import {ITextAreaValues} from "../pages/ApplicationsList/components/CreateApplication";
 
 
 interface IResponse<T> {

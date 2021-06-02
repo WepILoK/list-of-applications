@@ -1,25 +1,21 @@
 import produce, {Draft} from "immer";
 import {LoadingStatus} from "../../types";
 import {ActionsType, IActions} from "./contracts/actionTypes";
-import {IState} from "./contracts/state";
+import {InItem, IState} from "./contracts/state";
 
 const initialListItemsState: IState = {
     priorities: [],
     statuses: [],
     users: [],
     listItems: [],
-    item: undefined,
+    item: {} as InItem,
     itemStatus: LoadingStatus.NEVER,
-    editItemStatus: LoadingStatus.NEVER
 }
 
 export const listItemsReducer = produce((draft: Draft<IState>, action: IActions) => {
     switch (action.type) {
         case ActionsType.SET_LIST_ITEMS:
             draft.listItems = action.payload.reverse()
-            break;
-        case ActionsType.SET_EDIT_ITEM_LOADING_STATUS:
-            draft.editItemStatus = action.payload
             break;
         case ActionsType.SET_ITEM_LOADING_STATUS:
             draft.itemStatus = action.payload

@@ -1,7 +1,7 @@
 import {Action} from "redux";
 import {IState} from "./state";
 import {LoadingStatus} from "../../../types";
-import {ITextAreaValues} from "../../../../components/CreateApplication";
+import {ITextAreaValues} from "../../../../pages/ApplicationsList/components/CreateApplication";
 
 export enum ActionsType {
     FETCH_LIST_ITEMS = 'listItems/FETCH_LIST_ITEMS',
@@ -9,10 +9,8 @@ export enum ActionsType {
     FETCH_ITEM = 'listItems/FETCH_ITEM',
     SET_ITEM = 'listItems/SET_ITEM',
     UPDATE_ITEM = 'listItems/UPDATE_ITEM',
-    SET_EDIT_ITEM_LOADING_STATUS = 'listItems/SET_EDIT_ITEM_LOADING_STATUS',
     SET_ITEM_LOADING_STATUS = 'listItems/SET_ITEM_LOADING_STATUS',
     FETCH_CREATE_ITEM = 'listItems/FETCH_CREATE_ITEM',
-    CREATE_ITEM = 'listItems/CREATE_ITEM',
     FETCH_PRIORITIES_AND_STATUSES_AND_USERS = 'listItems/FETCH_PRIORITIES_AND_STATUSES_AND_USERS',
     SET_PRIORITIES_AND_STATUSES_AND_USERS = 'listItems/SET_PRIORITIES_AND_STATUSES_AND_USERS',
 }
@@ -46,11 +44,6 @@ export interface IFetchCreateItem extends Action<ActionsType> {
     payload: ITextAreaValues
 }
 
-export interface ICreateItem extends Action<ActionsType> {
-    type: ActionsType.CREATE_ITEM,
-    payload: ITextAreaValues & { id: number }
-}
-
 export interface IFetchPrioritiesAndStatusesAndUsers extends Action<ActionsType> {
     type: ActionsType.FETCH_PRIORITIES_AND_STATUSES_AND_USERS,
 }
@@ -60,11 +53,6 @@ export interface ISetPrioritiesAndStatusesAndUsers extends Action<ActionsType> {
     payload: { priorities: IState['priorities'], statuses: IState['statuses'], users: IState['users'] }
 }
 
-export interface ISetEditItemLoadingStatus extends Action<ActionsType> {
-    type: ActionsType.SET_EDIT_ITEM_LOADING_STATUS
-    payload: LoadingStatus
-}
-
 export interface ISetItemLoadingStatus extends Action<ActionsType> {
     type: ActionsType.SET_ITEM_LOADING_STATUS
     payload: LoadingStatus
@@ -72,7 +60,6 @@ export interface ISetItemLoadingStatus extends Action<ActionsType> {
 
 export type IActions =
     IFetchListItems
-    | ISetEditItemLoadingStatus
     | ISetListItems
     | IFetchCreateItem
     | IFetchPrioritiesAndStatusesAndUsers
@@ -80,5 +67,4 @@ export type IActions =
     | IFetchItem
     | ISetItem
     | ISetItemLoadingStatus
-    | ICreateItem
     | IUpdateItem

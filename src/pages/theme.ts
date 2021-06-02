@@ -309,28 +309,18 @@ export const useStyles = makeStyles((theme) => ({
             borderRadius: 10,
         }
     },
-    editApplicationStatusTitle: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        position: 'relative',
-        top: -9,
-        left: 9,
-        padding: '3px 3px 2px 7px',
-        color: '#9A9A9A',
-        fontWeight: 600,
-        maxWidth: 115,
-        cursor: 'pointer',
-        maxHeight: 43,
-        '&:hover': {
-            borderRadius: 10,
-            backgroundColor: '#c7e4ef',
-        }
-    },
     editApplicationStatusSelect: {
         position: 'relative',
         top: -4,
         left: 9,
-        maxWidth: 110,
+        maxWidth: 119,
+        padding: 2,
+        border: 'none',
+        outline: 'none',
+        backgroundColor: '#EBF3F6',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
     },
     editApplicationStatusIcon: {
         borderRadius: 20,
@@ -341,22 +331,12 @@ export const useStyles = makeStyles((theme) => ({
         color: '#9A9A9A',
         marginBottom: 5,
     },
-    editApplicationExecutor: {
-        display: 'flex',
-        color: 'rgb(26, 145, 218)',
-        width: 140,
-        padding: '1px 0px 0px 9px ',
-        '&:hover': {
-            borderRadius: 10,
-            backgroundColor: '#c7e4ef',
-        }
-    },
     editApplicationExecutorSelect: {
-        position: 'relative',
-        top: 2,
-        left: 5,
-        maxWidth: 110,
-        borderRadius: 10,
+        color: 'rgb(26, 145, 218)',
+        padding: 2,
+        border: 'none',
+        outline: 'none',
+        backgroundColor: '#EBF3F6',
     },
     editApplicationMargin: {
         marginBottom: 40

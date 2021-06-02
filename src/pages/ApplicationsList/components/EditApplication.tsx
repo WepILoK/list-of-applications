@@ -3,31 +3,29 @@ import {useHistory} from 'react-router-dom';
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "../pages/theme";
+import {useStyles} from "../../theme";
 import {Button} from "@material-ui/core";
-import ArrowDownIcon from '@material-ui/icons/ArrowDropDown';
 
 import ruLang from 'date-fns/locale/ru'
 import format from 'date-fns/format'
 
 import {ModalBlock} from "./ModalBlock";
 import {
-    selectEditItemLoadingStatus,
-    selectItem,
+    selectItem, selectItemEditStatus,
     selectStatuses,
     selectUsers
-} from "../store/ducks/listItems/selectors";
-import {fetchItem, updateItem} from "../store/ducks/listItems/actionCreators";
-import {IReturnType, selectById} from "../utils/selectById";
+} from "../../../store/ducks/listItems/selectors";
+import {fetchItem, setItem, updateItem} from "../../../store/ducks/listItems/actionCreators";
+import {IReturnType, selectById} from "../../../utils/selectById";
 
 
 export const EditApplication: React.FC = () => {
     const classes = useStyles()
-    let newComments
+
     const item = useSelector(selectItem)
     const statuses = useSelector(selectStatuses)
     const users = useSelector(selectUsers)
-    const editLoadingStatus = useSelector(selectEditItemLoadingStatus)
+    const editStatus = useSelector(selectItemEditStatus)
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -39,26 +37,35 @@ export const EditApplication: React.FC = () => {
     })
     const params: { id: string } = useParams();
     const itemId = Number(params.id)
-    const [editStatus, setEditStatus] = useState(false)
-    const [editExecutor, setEditExecutor] = useState(false)
     const [text, setText] = useState<string>('')
 
+    const updateData = () => {
+            console.log('und', {
+                id: itemId,
+                comment: text,
+                statusId: status.id,
+                executorId: executor.id
+            })
+        if (status.id && executor.id) {
+            dispatch(updateItem({
+                id: itemId,
+                comment: text,
+                statusId: status.id,
+                executorId: executor.id
+            }))
+        }
+        setText('')
+    }
+
     const handleChangeStatus = (event: React.ChangeEvent<{ value: unknown }>) => {
-        toggleEditStatus()
         const value = Number(event.target.value)
-        setStatus(prevState => {
-            return {...prevState, id: value}
-        });
+        console.log(status)
         setStatus(selectById(value, statuses));
         updateData()
     };
 
     const handleChangeExecutor = (event: React.ChangeEvent<{ value: unknown }>) => {
-        toggleEditExecutor()
         const value = Number(event.target.value)
-        setExecutor(prevState => {
-            return {...prevState, id: value}
-        });
         setExecutor(selectById(value, users));
         updateData()
     };
@@ -69,38 +76,15 @@ export const EditApplication: React.FC = () => {
         }
     }
 
-    const toggleEditStatus = () => {
-        setEditStatus(!editStatus)
-    }
-    const toggleEditExecutor = () => {
-        setEditExecutor(!editExecutor)
-    }
-
-    const updateData = () => {
-        if (status.id && executor.id) {
-                console.log('und', {
-                    id: itemId,
-                    comment: text,
-                    statusId: status.id,
-                    executorId: executor.id
-                })
-                dispatch(updateItem({
-                    id: itemId,
-                    comment: text,
-                    statusId: status.id,
-                    executorId: executor.id
-                }))
-        }
-        setText('')
-    }
-
 
     useEffect(() => {
-        history.push(`/applications/edit/${item?.id || itemId}`)
-        dispatch(fetchItem(item?.id || itemId))
-    }, [itemId, item?.id, dispatch, editLoadingStatus])
+        dispatch(fetchItem(itemId))
 
-    if (item && itemId) {
+
+
+    }, [editStatus])
+
+    if (item) {
         return (
             <ModalBlock title={`№ ${item.id}`} name={item.name}>
                 <div className={classes.editApplication}>
@@ -149,19 +133,16 @@ export const EditApplication: React.FC = () => {
                         <div className={classes.editApplicationStatus}>
                             <div className={classes.editApplicationStatusIcon}
                                  style={{backgroundColor: `${status.rgb ? status.rgb : item.statusRgb}`}}/>
-                            {editStatus ? (
-                                <select
+                            {/*${status.rgb ? status.rgb : item.statusRgb}*/}
+                            {/*{item.statusRgb ? item.statusRgb : status.rgb}*/}
+                            <select
                                 className={classes.editApplicationStatusSelect}
                                 onChange={handleChangeStatus}>
                                 {statuses.map(obj =>
                                     <option selected={obj.id === item?.statusId} key={obj.id} value={obj.id}>
                                         {obj.name}
                                     </option>)}
-                            </select>) : (
-                                <div onClick={toggleEditStatus} className={classes.editApplicationStatusTitle}>
-                                    {status.name ? status.name : item.statusName}
-                                    <ArrowDownIcon/>
-                                </div>)}
+                            </select>
                         </div>
                         <div className={classes.editApplicationMargin}>
                             <div className={classes.editApplicationHead}>
@@ -179,19 +160,14 @@ export const EditApplication: React.FC = () => {
                             <div className={classes.editApplicationHead}>
                                 Исполнитель
                             </div>
-                            {editExecutor ? (<select
+                            <select
                                 className={classes.editApplicationExecutorSelect}
                                 onChange={handleChangeExecutor}>
                                 {users.map(obj =>
                                     <option selected={obj.id === item?.executorId} key={obj.id} value={obj.id}>
                                         {obj.name}
                                     </option>)}
-                            </select>) : (
-                                <div onClick={toggleEditExecutor} className={classes.editApplicationExecutor}>
-                                    {executor.name ? executor.name : item.executorName}
-                                    <ArrowDownIcon/>
-                                </div>
-                            )}
+                            </select>
                         </div>
                         <div className={classes.editApplicationMargin}>
                             <div className={classes.editApplicationHead}>

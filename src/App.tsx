@@ -3,7 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 import {SideMenu} from "./components/SideMenu";
 import {Header} from "./components/Header";
 import {useStyles} from "./pages/theme";
-import {ApplicationsList} from "./pages/ApplicationsList";
+import {ApplicationsList} from "./pages/ApplicationsList/ApplicationsList";
 import {fetchPrioritiesAndStatusesAndUsers} from "./store/ducks/listItems/actionCreators";
 import {useDispatch} from "react-redux";
 import {KnowledgeBase} from "./pages/knowledgeBase";

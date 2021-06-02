@@ -1,16 +1,16 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "../pages/theme";
+import {useStyles} from "../../theme";
 
-import {setItem, setItemLoadingStatus} from "../store/ducks/listItems/actionCreators";
-import {selectPriorities} from "../store/ducks/listItems/selectors";
+import {fetchItem, setItem, setItemLoadingStatus} from "../../../store/ducks/listItems/actionCreators";
+import {selectPriorities} from "../../../store/ducks/listItems/selectors";
 
-import {LoadingStatus} from "../store/types";
-import {InItem} from "../store/ducks/listItems/contracts/state";
+import {LoadingStatus} from "../../../store/types";
+import {InItem} from "../../../store/ducks/listItems/contracts/state";
 
-import {selectById} from "../utils/selectById";
+import {selectById} from "../../../utils/selectById";
 
 
 interface InItemsList {
@@ -23,14 +23,14 @@ export const Application: React.FC<InItemsList> = ({item}) => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const priorities = useSelector(selectPriorities)
+    const history = useHistory()
 
-    const onClick = () => {
-        dispatch(setItem(item))
-        dispatch(setItemLoadingStatus(LoadingStatus.LOADING))
+    const onClick = async () => {
+        await dispatch(fetchItem(id))
+        history.push(`/applications/edit/${id}`)
     }
 
     return (
-        <Link to={`/applications/edit/${id}`}>
             <div className={classes.applicationsListItem} onClick={onClick}>
                 <div className={classes.applicationsListPriority}
                      style={{backgroundColor: `${selectById(priorityId, priorities).rgb}`}}/>
@@ -47,7 +47,5 @@ export const Application: React.FC<InItemsList> = ({item}) => {
                     {executorName}
                 </div>
             </div>
-        </Link>
-
     )
 }

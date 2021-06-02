@@ -3,16 +3,16 @@ import {Button} from "@material-ui/core";
 import {Route, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "./theme";
+import {useStyles} from "../theme";
 
-import {fetchListItems} from "../store/ducks/listItems/actionCreators";
+import {fetchListItems} from "../../store/ducks/listItems/actionCreators";
 import {
     selectListItems,
     selectItemLoadingStatus
-} from "../store/ducks/listItems/selectors";
-import {CreateApplication} from "../components/CreateApplication";
-import {EditApplication} from "../components/EditApplication";
-import {Application} from "../components/Application";
+} from "../../store/ducks/listItems/selectors";
+import {CreateApplication} from "./components/CreateApplication";
+import {EditApplication} from "./components/EditApplication";
+import {Application} from "./components/Application";
 
 
 export const ApplicationsList: React.FC = () => {

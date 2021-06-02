@@ -1,17 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "../pages/theme";
+import {useStyles} from "../../theme";
 import {CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 import {ModalBlock} from "./ModalBlock";
-import {fetchCreateItem} from "../store/ducks/listItems/actionCreators";
-import {selectItem, selectItemLoadingStatus} from "../store/ducks/listItems/selectors";
+import {fetchCreateItem} from "../../../store/ducks/listItems/actionCreators";
+import {selectItem, selectItemEditStatus, selectItemLoadingStatus} from "../../../store/ducks/listItems/selectors";
 
-import {LoadingStatus} from "../store/types";
-
+import {LoadingStatus} from "../../../store/types";
 
 
 export interface ITextAreaValues {
@@ -24,6 +23,7 @@ export const CreateApplication: React.FC = () => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})
     const dispatch = useDispatch()
     const loadingStatus = useSelector(selectItemLoadingStatus)
+    const editStatus = useSelector(selectItemEditStatus)
     const item = useSelector(selectItem)
     const classes = useStyles()
     const history = useHistory()
@@ -33,7 +33,8 @@ export const CreateApplication: React.FC = () => {
             let value = e.currentTarget.value
             if (type === 'name') {
                 setText(prevState => {
-                    return {...prevState, name: value}})
+                    return {...prevState, name: value}
+                })
             } else if (type === 'description') {
                 setText(prevState => {
                     return {...prevState, description: value}
@@ -45,8 +46,20 @@ export const CreateApplication: React.FC = () => {
     const onSubmit = () => {
         dispatch(fetchCreateItem({...text}))
         setText({name: '', description: ''})
-        history.push(`/applications/edit/${item?.id}`)
     };
+
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            if (item && editStatus) {
+                history.push(`/applications/edit/${item?.id}`)
+            }
+        }, 1000);
+
+
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [item, editStatus])
 
     return (
         <ModalBlock title='Новая заявка'>

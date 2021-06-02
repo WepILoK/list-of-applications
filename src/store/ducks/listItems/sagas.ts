@@ -4,7 +4,7 @@ import {InItem, IState} from "./contracts/state";
 import {Api} from "../../../api/api";
 import {ActionsType, IFetchCreateItem, IFetchItem, IUpdateItem} from "./contracts/actionTypes";
 import {
-    fetchItem, setEditItemLoadingStatus,
+    fetchItem,
     setItem,
     setItemLoadingStatus,
     setListItems,
@@ -24,7 +24,7 @@ export function* fetchItemRequest({payload}: IFetchItem) {
         yield put(setItemLoadingStatus(LoadingStatus.LOADING))
         const item: IState['item'] = yield call(Api.fetchItem, payload)
         yield put(setItem(item))
-        yield put(setItemLoadingStatus(LoadingStatus.LOADED))
+        yield put(setItemLoadingStatus(LoadingStatus.EDIT))
     } catch (error) {
         yield put(setItemLoadingStatus(LoadingStatus.ERROR))
     }
@@ -54,10 +54,8 @@ export function* createItemRequest({payload}: IFetchCreateItem) {
 export function* updateItemRequest({payload}: IUpdateItem) {
     try {
         yield put(setItemLoadingStatus(LoadingStatus.LOADING))
-        yield put(setEditItemLoadingStatus(LoadingStatus.LOADING))
         yield call(Api.updateItem, payload)
-        yield put(setItemLoadingStatus(LoadingStatus.LOADED))
-        yield put(setEditItemLoadingStatus(LoadingStatus.LOADED))
+        yield put(setItemLoadingStatus(LoadingStatus.SUCCESS))
     } catch (error) {
         yield put(setItemLoadingStatus(LoadingStatus.ERROR))
     }

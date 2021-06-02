@@ -1,13 +1,13 @@
 import {IState} from "./contracts/state";
 import {
-    ActionsType, ICreateItem,
+    ActionsType,
     IFetchCreateItem, IFetchItem,
     IFetchListItems, IFetchPrioritiesAndStatusesAndUsers, ISetItem, ISetItemLoadingStatus,
     ISetListItems,
-    ISetEditItemLoadingStatus, ISetPrioritiesAndStatusesAndUsers, IUpdateItem
+    ISetPrioritiesAndStatusesAndUsers, IUpdateItem
 } from "./contracts/actionTypes";
 import {LoadingStatus} from "../../types";
-import {ITextAreaValues} from "../../../components/CreateApplication";
+import {ITextAreaValues} from "../../../pages/ApplicationsList/components/CreateApplication";
 
 
 export const fetchListItems = (): IFetchListItems => ({
@@ -33,11 +33,6 @@ export const updateItem = (payload: {id: number, comment: string, statusId: numb
     payload
 })
 
-export const setEditItemLoadingStatus = (payload: LoadingStatus): ISetEditItemLoadingStatus => ({
-    type: ActionsType.SET_EDIT_ITEM_LOADING_STATUS,
-    payload
-})
-
 export const setItemLoadingStatus = (payload: LoadingStatus): ISetItemLoadingStatus => ({
     type: ActionsType.SET_ITEM_LOADING_STATUS,
     payload
@@ -45,11 +40,6 @@ export const setItemLoadingStatus = (payload: LoadingStatus): ISetItemLoadingSta
 
 export const fetchCreateItem = (payload: ITextAreaValues): IFetchCreateItem => ({
     type: ActionsType.FETCH_CREATE_ITEM,
-    payload
-})
-
-export const createItem = (payload: ITextAreaValues & { id: number }): ICreateItem => ({
-    type: ActionsType.CREATE_ITEM,
     payload
 })
 
