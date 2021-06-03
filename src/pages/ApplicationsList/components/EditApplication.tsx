@@ -11,7 +11,7 @@ import format from 'date-fns/format'
 import {ModalBlock} from "./ModalBlock";
 import {selectItem, selectStatuses, selectUsers} from "../../../store/ducks/listItems/selectors";
 import {fetchItem, updateItem} from "../../../store/ducks/listItems/actionCreators";
-import {IReturnType, selectById} from "../../../utils/selectById";
+import {selectById} from "../../../utils/selectById";
 import {Api} from "../../../api/api";
 
 
@@ -24,10 +24,10 @@ export const EditApplication: React.FC = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [status, setStatus] = useState<IReturnType>({
-        name: item?.statusName, rgb: item?.statusRgb, id: item?.statusId
+    const [status, setStatus] = useState({
+        name: item?.statusName, id: item?.statusId
     })
-    const [executor, setExecutor] = useState<IReturnType>({
+    const [executor, setExecutor] = useState({
         name: item?.executorName, id: item?.executorId
     })
     const params: { id: string } = useParams();
@@ -45,29 +45,34 @@ export const EditApplication: React.FC = () => {
         setText('')
     }
 
-    const handleChangeStatus = async (event: React.ChangeEvent<{ value: unknown }>) => {
-        const value = Number(event.target.value)
+    const handleChangeStatus = async (event: React.ChangeEvent<{ value: string }>) => {
+        let value = (event.target.value.substring(0, 5) + "," + event.target.value.substring(5)).split(",")
+        const id = Number(value[0])
         const itemData = await Api.fetchItem(itemId)
             dispatch(updateItem({
                 id: itemId,
                 comment: text,
-                statusId: value,
+                statusId: id,
                 executorId: itemData.executorId
             }))
-        setStatus(selectById(value, statuses));
-        console.log(status)
+        setStatus(prevState => {
+            return {...prevState, id: id, name: value[1]}
+        });
     };
 
-    const handleChangeExecutor = async (event: React.ChangeEvent<{ value: unknown }>) => {
-        const value = Number(event.target.value)
+    const handleChangeExecutor = async (event: React.ChangeEvent<{ value: string }>) => {
+        let value = (event.target.value.substring(0, 5) + "," + event.target.value.substring(5)).split(",")
+        const id = Number(value[0])
         const itemData = await Api.fetchItem(itemId)
         dispatch(updateItem({
                 id: itemId,
                 comment: text,
                 statusId: itemData.statusId,
-                executorId: value
+                executorId: id
             }))
-        setExecutor(selectById(value, users))
+        setExecutor(prevState => {
+            return {...prevState, id: id, name: value[1] }
+        })
     };
 
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>): void => {
@@ -78,8 +83,8 @@ export const EditApplication: React.FC = () => {
 
 
     useEffect(() => {
-        history.push(`/applications/edit/${item?.id}`)
         dispatch(fetchItem(itemId))
+        history.push(`/applications/edit/${item?.id}`)
     }, [itemId, executor.id, text, dispatch, status.id])
 
 
@@ -131,12 +136,12 @@ export const EditApplication: React.FC = () => {
                     <div className={classes.editApplicationRightBlock}>
                         <div className={classes.editApplicationStatus}>
                             <div className={classes.editApplicationStatusIcon}
-                                 style={{backgroundColor: `${item.statusRgb ? item.statusRgb : status.rgb}`}}/>
+                                 style={{backgroundColor: `${selectById(status.id, statuses).rgb}`}}/>
                             <select
                                 className={classes.editApplicationStatusSelect}
                                 onChange={handleChangeStatus}>
                                 {statuses.map(obj =>
-                                    <option selected={obj.id === item?.statusId} key={obj.id} value={obj.id}>
+                                    <option selected={obj.id === item?.statusId} key={obj.id} value={obj.id + obj.name}>
                                         {obj.name}
                                     </option>)}
                             </select>
@@ -161,7 +166,7 @@ export const EditApplication: React.FC = () => {
                                 className={classes.editApplicationExecutorSelect}
                                 onChange={handleChangeExecutor}>
                                 {users.map(obj =>
-                                    <option selected={obj.id === item?.executorId} key={obj.id} value={obj.id}>
+                                    <option selected={obj.id === item?.executorId} key={obj.id} value={obj.id + obj.name}>
                                         {obj.name}
                                     </option>)}
                             </select>
