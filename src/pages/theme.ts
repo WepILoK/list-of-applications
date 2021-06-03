@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     header: {
         backgroundColor: '#D2DFED',
         height: 65,
-        width: '2075px',
+        width: 'calc(100vw + 18%)',
         '& .MuiOutlinedInput-root': {
             borderRadius: 40,
         },
@@ -73,6 +73,7 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: 12,
     },
     applicationsList: {
+        width: 'calc(100vw + 18%)',
         paddingTop: 30,
         '& a': {
             color: '#000000',
