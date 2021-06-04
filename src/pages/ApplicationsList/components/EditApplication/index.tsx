@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useHistory, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useApplicationListComponentsStyles} from "../theme";
+import {useEditStyles} from "./theme";
 
 import {ModalBlock} from "../ModalBlock";
 import {selectItem} from "../../../../store/ducks/listItems/selectors";
@@ -14,7 +14,7 @@ import {EditRightBlock} from "./EditRightBlock";
 
 export const EditApplication: React.FC = () => {
     const item = useSelector(selectItem)
-    const classes = useApplicationListComponentsStyles()
+    const classes = useEditStyles()
 
     const dispatch = useDispatch()
     const history = useHistory()

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Button} from "@material-ui/core";
 import format from "date-fns/format";
 import ruLang from "date-fns/locale/ru";
-import {useApplicationListComponentsStyles} from "../theme";
+import {useEditStyles} from "./theme";
 import {useDispatch} from "react-redux";
 import {Api} from "../../../../api/api";
 import {updateItem} from "../../../../store/ducks/listItems/actionCreators";
@@ -14,7 +14,7 @@ interface IEditLeftBlock {
 }
 
 export const EditLeftBlock: React.FC<IEditLeftBlock> = ({item}) => {
-    const classes = useApplicationListComponentsStyles()
+    const classes = useEditStyles()
     const dispatch = useDispatch()
 
     const [text, setText] = useState<string>('')

@@ -4,7 +4,7 @@ import format from "date-fns/format";
 import ruLang from "date-fns/locale/ru";
 import {useDispatch, useSelector} from "react-redux";
 import {selectStatuses, selectUsers} from "../../../../store/ducks/listItems/selectors";
-import {useApplicationListComponentsStyles} from "../theme";
+import {useEditStyles} from "./theme";
 import {Api} from "../../../../api/api";
 import {updateItem} from "../../../../store/ducks/listItems/actionCreators";
 import {InItem} from "../../../../store/ducks/listItems/contracts/state";
@@ -18,7 +18,7 @@ export const EditRightBlock: React.FC<IEditApplicationRightBlock> = ({item}) => 
     const users = useSelector(selectUsers)
     const dispatch = useDispatch()
 
-    const classes = useApplicationListComponentsStyles()
+    const classes = useEditStyles()
 
     const [status, setStatus] = useState({
         name: item?.statusName, id: item?.statusId
