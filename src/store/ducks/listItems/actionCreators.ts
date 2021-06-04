@@ -1,4 +1,4 @@
-import {IState} from "./contracts/state";
+import {IState, LoadingStatus} from "./contracts/state";
 import {
     ActionsType,
     IFetchCreateItem, IFetchItem,
@@ -6,7 +6,6 @@ import {
     ISetListItems,
     ISetPrioritiesAndStatusesAndUsers, IUpdateItem
 } from "./contracts/actionTypes";
-import {LoadingStatus} from "../../types";
 import {ITextAreaValues} from "../../../pages/ApplicationsList/components/CreateApplication";
 
 

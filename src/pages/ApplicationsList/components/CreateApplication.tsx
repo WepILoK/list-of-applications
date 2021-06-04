@@ -2,15 +2,17 @@ import React, {useState} from "react";
 import {useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "../../theme";
+import {useApplicationListComponentsStyles} from "./theme";
+
 import {CircularProgress} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 import {ModalBlock} from "./ModalBlock";
 import {fetchCreateItem} from "../../../store/ducks/listItems/actionCreators";
 import {selectItem, selectItemLoadingStatus} from "../../../store/ducks/listItems/selectors";
+import {LoadingStatus} from "../../../store/ducks/listItems/contracts/state";
 
-import {LoadingStatus} from "../../../store/types";
+
 
 
 export interface ITextAreaValues {
@@ -18,13 +20,12 @@ export interface ITextAreaValues {
     description: string
 }
 
-
 export const CreateApplication: React.FC = () => {
     const [text, setText] = useState<ITextAreaValues>({name: '', description: ''})
     const dispatch = useDispatch()
     const loadingStatus = useSelector(selectItemLoadingStatus)
     const item = useSelector(selectItem)
-    const classes = useStyles()
+    const classes = useApplicationListComponentsStyles()
     const history = useHistory()
 
     const handleChangeName = (e: React.FormEvent<HTMLTextAreaElement>, type: 'name' | 'description'): void => {
@@ -48,8 +49,6 @@ export const CreateApplication: React.FC = () => {
         setTimeout(() => {
             history.push(`/applications/edit/${item?.id}`)
         }, 1500);
-
-
     };
 
     return (

@@ -1,4 +1,10 @@
-import {LoadingStatus} from "../../../types";
+export enum LoadingStatus {
+    LOADED = 'LOADED',
+    LOADING = 'LOADING',
+    ERROR = 'ERROR',
+    NEVER = 'NEVER',
+    EDIT = 'EDIT',
+}
 
 interface ITags {
     id: number
@@ -26,26 +32,17 @@ export interface InItem {
     id: number
     name: string
     description: string
-    createdAt: string
-    updatedAt: string
-    price: number
-    taskTypeId: number
-    taskTypeName: string
     statusId: number
-    statusName: string
-    statusRgb: string
-    priorityId: number
+    statusName?: string
+    statusRgb?: string
+    priorityId?: number
     priorityName: string
-    serviceName: string
-    serviceId: number
     resolutionDatePlan: string
     tags: ITags[]
-    initiatorId: number
+    initiatorId?: number
     initiatorName: string
     executorId: number
-    executorName: string
-    executorGroupId: number
-    executorGroupName: string
+    executorName?: string
     lifetimeItems: IComment[]
 }
 
@@ -54,6 +51,6 @@ export interface IState {
     statuses: IData[]
     users: IData[]
     listItems: InItem[]
-    item?: InItem
+    item: InItem
     itemStatus: LoadingStatus
 }

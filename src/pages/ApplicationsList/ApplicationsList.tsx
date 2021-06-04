@@ -3,7 +3,7 @@ import {Button} from "@material-ui/core";
 import {Route, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "../theme";
+import {useApplicationListStyles} from "./theme";
 
 import {fetchListItems} from "../../store/ducks/listItems/actionCreators";
 import {
@@ -11,8 +11,9 @@ import {
     selectItemLoadingStatus
 } from "../../store/ducks/listItems/selectors";
 import {CreateApplication} from "./components/CreateApplication";
-import {EditApplication} from "./components/EditApplication";
+import {Index} from "./components/EditApplication";
 import {Application} from "./components/Application";
+
 
 
 export const ApplicationsList: React.FC = () => {
@@ -20,7 +21,7 @@ export const ApplicationsList: React.FC = () => {
     const items = useSelector(selectListItems)
     const loadingStatus = useSelector(selectItemLoadingStatus)
 
-    const classes = useStyles()
+    const classes = useApplicationListStyles()
     const history = useHistory()
 
     const openCreateBlock = (): void => {
@@ -59,7 +60,7 @@ export const ApplicationsList: React.FC = () => {
                 <CreateApplication/>
             </Route>
             <Route path='/applications/edit/:id' exact>
-                <EditApplication/>
+                <Index/>
             </Route>
         </div>
     )

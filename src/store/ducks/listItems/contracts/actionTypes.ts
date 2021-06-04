@@ -1,6 +1,6 @@
 import {Action} from "redux";
-import {IState} from "./state";
-import {LoadingStatus} from "../../../types";
+import {IState, LoadingStatus} from "./state";
+
 import {ITextAreaValues} from "../../../../pages/ApplicationsList/components/CreateApplication";
 
 export enum ActionsType {

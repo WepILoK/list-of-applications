@@ -2,7 +2,7 @@ import React from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
-import {useStyles} from "../../theme";
+import {useApplicationListStyles} from "../theme";
 
 import {fetchItem} from "../../../store/ducks/listItems/actionCreators";
 import {selectPriorities} from "../../../store/ducks/listItems/selectors";
@@ -12,6 +12,7 @@ import {InItem} from "../../../store/ducks/listItems/contracts/state";
 import {selectById} from "../../../utils/selectById";
 
 
+
 interface InItemsList {
     item: InItem
 }
@@ -19,7 +20,7 @@ interface InItemsList {
 
 export const Application: React.FC<InItemsList> = ({item}) => {
     const {id, name, statusName, statusRgb, priorityId, executorName} = item
-    const classes = useStyles()
+    const classes = useApplicationListStyles()
     const dispatch = useDispatch()
     const priorities = useSelector(selectPriorities)
     const history = useHistory()

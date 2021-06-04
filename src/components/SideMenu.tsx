@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-import {useStyles} from "../pages/theme";
+import {useComponentStyles} from "./theme";
 
 import logo from '../assets/image/logo.png'
 import analytics from '../assets/image/analytics.png'
@@ -12,11 +12,11 @@ import people from '../assets/image/noun_people_1923174.png'
 import settings from '../assets/image/noun_Settings_1048928.png'
 
 
+
 export const SideMenu: React.FC = () => {
-    const classes = useStyles()
+    const classes = useComponentStyles()
 
     return (
-
         <div className={classes.sideMenu}>
             <div className={classes.sideMenuLogo}>
                 <img src={logo} alt='logo'/>
@@ -60,6 +60,5 @@ export const SideMenu: React.FC = () => {
                 </Link>
             </div>
         </div>
-
     )
 }
