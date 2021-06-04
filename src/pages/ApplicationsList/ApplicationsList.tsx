@@ -11,7 +11,7 @@ import {
     selectItemLoadingStatus
 } from "../../store/ducks/listItems/selectors";
 import {CreateApplication} from "./components/CreateApplication";
-import {Index} from "./components/EditApplication";
+import {EditApplication} from "./components/EditApplication";
 import {Application} from "./components/Application";
 
 
@@ -60,7 +60,7 @@ export const ApplicationsList: React.FC = () => {
                 <CreateApplication/>
             </Route>
             <Route path='/applications/edit/:id' exact>
-                <Index/>
+                <EditApplication/>
             </Route>
         </div>
     )

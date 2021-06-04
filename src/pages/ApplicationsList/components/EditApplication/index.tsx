@@ -12,7 +12,7 @@ import {EditLeftBlock} from "./EditLeftBlock";
 import {EditRightBlock} from "./EditRightBlock";
 
 
-export const Index: React.FC = () => {
+export const EditApplication: React.FC = () => {
     const item = useSelector(selectItem)
     const classes = useApplicationListComponentsStyles()
 
