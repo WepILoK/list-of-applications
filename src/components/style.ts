@@ -1,6 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-export const useComponentStyles = makeStyles((theme) => ({
+export const useComponentStyles = makeStyles(() => ({
     header: {
         backgroundColor: '#D2DFED',
         height: 65,

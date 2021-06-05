@@ -1,6 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-export const useApplicationListStyles = makeStyles((theme) => ({
+export const useApplicationListStyles = makeStyles(() => ({
     applicationsList: {
         width: 'calc(100vw + 18%)',
         paddingTop: 30,

@@ -1,6 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-export const useEditStyles = makeStyles((theme) => ({
+export const useEditStyles = makeStyles(() => ({
     editApplication: {
         display: 'flex',
         width: 'calc(100vw - 55%)',

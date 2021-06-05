@@ -1,6 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-export const useApplicationListComponentsStyles = makeStyles((theme) => ({
+export const useApplicationListComponentsStyles = makeStyles(() => ({
     modalBlock: {
         height: 'calc(100vh - 65px)',
         width: 'calc(100vw - 677px)',

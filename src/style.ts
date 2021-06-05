@@ -1,6 +1,6 @@
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
     app: {
         display: 'flex',
         '& .MuiGrid-root.MuiGrid-root': {
