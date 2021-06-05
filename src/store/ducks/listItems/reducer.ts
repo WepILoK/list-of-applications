@@ -38,6 +38,20 @@ export const listItemsReducer = produce((draft: Draft<IState>, action: IActions)
             draft.statuses = action.payload.statuses
             draft.users = action.payload.users
             break;
+        case ActionsType.SET_DEFAULT_ITEM:
+            draft.item = {
+                id: 0,
+                name: '',
+                description: '',
+                statusId: 0,
+                initiatorName: '',
+                priorityName: '',
+                executorId: 0,
+                tags: [],
+                resolutionDatePlan: '',
+                lifetimeItems: [],
+            }
+            break;
         default:
             break;
     }

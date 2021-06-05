@@ -54,7 +54,7 @@ export function* updateItemRequest({payload}: IUpdateItem) {
     try {
         yield put(setItemLoadingStatus(LoadingStatus.LOADING))
         yield call(Api.updateItem, payload)
-        yield put(setItemLoadingStatus(LoadingStatus.EDIT))
+        yield put(fetchItem(payload.id))
     } catch (error) {
         yield put(setItemLoadingStatus(LoadingStatus.ERROR))
     }

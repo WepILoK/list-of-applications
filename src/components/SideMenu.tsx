@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-import {useComponentStyles} from "./theme";
+import {useComponentStyles} from "./style";
 
 import logo from '../assets/image/logo.png'
 import analytics from '../assets/image/analytics.png'
@@ -10,7 +10,6 @@ import city from '../assets/image/noun_City_1923172.png'
 import file from '../assets/image/noun_File_453295.png'
 import people from '../assets/image/noun_people_1923174.png'
 import settings from '../assets/image/noun_Settings_1048928.png'
-
 
 
 export const SideMenu: React.FC = () => {

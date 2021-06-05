@@ -8,6 +8,7 @@ export enum ActionsType {
     SET_LIST_ITEMS = 'listItems/SET_LIST_ITEMS',
     FETCH_ITEM = 'listItems/FETCH_ITEM',
     SET_ITEM = 'listItems/SET_ITEM',
+    SET_DEFAULT_ITEM = 'listItems/SET_DEFAULT_ITEM',
     UPDATE_ITEM = 'listItems/UPDATE_ITEM',
     SET_ITEM_LOADING_STATUS = 'listItems/SET_ITEM_LOADING_STATUS',
     FETCH_CREATE_ITEM = 'listItems/FETCH_CREATE_ITEM',
@@ -58,6 +59,10 @@ export interface ISetItemLoadingStatus extends Action<ActionsType> {
     payload: LoadingStatus
 }
 
+export interface ISetDefaultItem extends Action<ActionsType> {
+    type: ActionsType.SET_DEFAULT_ITEM
+}
+
 export type IActions =
     IFetchListItems
     | ISetListItems
@@ -68,3 +73,4 @@ export type IActions =
     | ISetItem
     | ISetItemLoadingStatus
     | IUpdateItem
+    | ISetDefaultItem

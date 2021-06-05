@@ -1,27 +1,22 @@
 import React, {useEffect} from "react";
-import {Button} from "@material-ui/core";
 import {Route, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useApplicationListStyles} from "./theme";
+import {useApplicationListStyles} from "./style";
+import {Button} from "@material-ui/core";
 
-import {fetchListItems} from "../../store/ducks/listItems/actionCreators";
-import {
-    selectListItems,
-    selectItemLoadingStatus
-} from "../../store/ducks/listItems/selectors";
 import {CreateApplication} from "./components/CreateApplication";
 import {EditApplication} from "./components/EditApplication";
 import {Application} from "./components/Application";
-
+import {fetchListItems} from "../../store/ducks/listItems/actionCreators";
+import {selectListItems, selectItemLoadingStatus} from "../../store/ducks/listItems/selectors";
 
 
 export const ApplicationsList: React.FC = () => {
-    const dispatch = useDispatch()
-    const items = useSelector(selectListItems)
-    const loadingStatus = useSelector(selectItemLoadingStatus)
-
     const classes = useApplicationListStyles()
+    const loadingStatus = useSelector(selectItemLoadingStatus)
+    const items = useSelector(selectListItems)
+    const dispatch = useDispatch()
     const history = useHistory()
 
     const openCreateBlock = (): void => {

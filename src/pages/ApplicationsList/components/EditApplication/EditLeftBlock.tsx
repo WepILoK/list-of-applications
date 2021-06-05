@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {Button} from "@material-ui/core";
+import {useDispatch} from "react-redux";
 import format from "date-fns/format";
 import ruLang from "date-fns/locale/ru";
-import {useEditStyles} from "./theme";
-import {useDispatch} from "react-redux";
-import {Api} from "../../../../api/api";
+
+import {useEditStyles} from "./style";
+
+import {Button} from "@material-ui/core";
+
 import {updateItem} from "../../../../store/ducks/listItems/actionCreators";
 import {InItem} from "../../../../store/ducks/listItems/contracts/state";
 
@@ -13,21 +15,21 @@ interface IEditLeftBlock {
     item: InItem
 }
 
-export const EditLeftBlock: React.FC<IEditLeftBlock> = ({item}) => {
+export const EditLeftBlock: React.FC<IEditLeftBlock> = React.memo(({item}) => {
     const classes = useEditStyles()
     const dispatch = useDispatch()
-
     const [text, setText] = useState<string>('')
-    const updateData = async () => {
-        const itemData = await Api.fetchItem(item.id)
+
+    const updateData = () => {
         dispatch(updateItem({
             id: item.id,
             comment: text,
-            statusId: itemData.statusId,
-            executorId: itemData.executorId
+            statusId: item.statusId,
+            executorId: item.executorId
         }))
         setText('')
     }
+
     const handleChangeTextarea = (e: React.FormEvent<HTMLTextAreaElement>): void => {
         if (e.currentTarget) {
             setText(e.currentTarget.value)
@@ -56,7 +58,7 @@ export const EditLeftBlock: React.FC<IEditLeftBlock> = ({item}) => {
                 </div>
             </div>
             <div className={classes.editApplicationComments}>
-                {item.lifetimeItems && item?.lifetimeItems.filter(obj => obj.comment).map(obj =>
+                {item.lifetimeItems && item.lifetimeItems.filter(obj => obj.comment).map(obj =>
                     <div key={obj.id} className={classes.editApplicationCommentItems}>
                         <div className={classes.editApplicationCommentsHeader}>
                             <div className={classes.editApplicationCommentsAvatar}/>
@@ -76,6 +78,5 @@ export const EditLeftBlock: React.FC<IEditLeftBlock> = ({item}) => {
                 )}
             </div>
         </div>
-
     );
-};
+})

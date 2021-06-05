@@ -21,7 +21,6 @@ export const instance = axios.create({
 
 const id = "f8fbaf8b-5fb9-48f2-b77e-f0f84dc626c2"
 
-
 export const Api = {
     async fetchListItems() {
         const {data} = await instance.get<IResponse<IState['listItems']>>(`odata/tasks?tenantguid=${id}`)
@@ -32,13 +31,12 @@ export const Api = {
         return data
     },
     async updateItem(item: IUpdate) {
-        const {data} = await instance.put<InItem>(`api/${id}/Tasks`, {
+        await instance.put<InItem>(`api/${id}/Tasks`, {
             id: item.id,
             statusId: item.statusId,
             executorId: item.executorId,
             comment: item.comment
         })
-        return data
     },
     async createItem(postData: ITextAreaValues) {
         const {data} = await instance.post<InItem['id']>(`api/${id}/Tasks`,

@@ -1,23 +1,27 @@
 import React, {useEffect} from 'react';
 import {Route, Switch} from 'react-router-dom';
+import {useDispatch} from "react-redux";
+
+import {useStyles} from "./style";
+
+import {fetchPrioritiesAndStatusesAndUsers} from "./store/ducks/listItems/actionCreators";
+import {ApplicationsList} from "./pages/ApplicationsList/ApplicationsList";
+import {KnowledgeBase} from "./pages/knowledgeBase";
 import {SideMenu} from "./components/SideMenu";
 import {Header} from "./components/Header";
-import {useStyles} from "./pages/theme";
-import {ApplicationsList} from "./pages/ApplicationsList/ApplicationsList";
-import {fetchPrioritiesAndStatusesAndUsers} from "./store/ducks/listItems/actionCreators";
-import {useDispatch} from "react-redux";
-import {KnowledgeBase} from "./pages/knowledgeBase";
 import {Staff} from "./pages/Staff";
 import {Clients} from "./pages/Сlients";
 import {Assets} from "./pages/Assets";
 import {Settings} from "./pages/Settings";
 
+
 function App() {
     const classes = useStyles()
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(fetchPrioritiesAndStatusesAndUsers())
-    }, [dispatch])
+    }, [])
 
     return (
         <div className={classes.app}>

@@ -1,33 +1,31 @@
 import React, {useEffect} from "react";
-import {useHistory, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 
-import {useEditStyles} from "./theme";
+import {useEditStyles} from "./style";
 
 import {ModalBlock} from "../ModalBlock";
-import {selectItem} from "../../../../store/ducks/listItems/selectors";
-import {fetchItem} from "../../../../store/ducks/listItems/actionCreators";
-
 import {EditLeftBlock} from "./EditLeftBlock";
 import {EditRightBlock} from "./EditRightBlock";
+import {selectItem} from "../../../../store/ducks/listItems/selectors";
+import {setDefaultItem} from "../../../../store/ducks/listItems/actionCreators";
 
 
-export const EditApplication: React.FC = () => {
-    const item = useSelector(selectItem)
+export const EditApplication: React.FC = React.memo(() => {
     const classes = useEditStyles()
-
+    const item = useSelector(selectItem)
     const dispatch = useDispatch()
-    const history = useHistory()
     const params: { id: string } = useParams();
+
     const itemId = Number(params.id)
 
     useEffect(() => {
-        dispatch(fetchItem(itemId))
-        history.push(`/applications/edit/${item?.id}`)
-    }, [itemId])
+        return () => {
+            dispatch(setDefaultItem())
+        }
+    }, [])
 
-
-    if (item?.id === itemId) {
+    if (item.id === itemId) {
         return (
             <ModalBlock title={`№ ${item.id}`} name={item.name}>
                 <div className={classes.editApplication}>
@@ -38,4 +36,4 @@ export const EditApplication: React.FC = () => {
         )
     }
     return null
-}
+})

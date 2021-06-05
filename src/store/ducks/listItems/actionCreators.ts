@@ -2,7 +2,7 @@ import {IState, LoadingStatus} from "./contracts/state";
 import {
     ActionsType,
     IFetchCreateItem, IFetchItem,
-    IFetchListItems, IFetchPrioritiesAndStatusesAndUsers, ISetItem, ISetItemLoadingStatus,
+    IFetchListItems, IFetchPrioritiesAndStatusesAndUsers, ISetDefaultItem, ISetItem, ISetItemLoadingStatus,
     ISetListItems,
     ISetPrioritiesAndStatusesAndUsers, IUpdateItem
 } from "./contracts/actionTypes";
@@ -49,4 +49,8 @@ export const fetchPrioritiesAndStatusesAndUsers = (): IFetchPrioritiesAndStatuse
 export const setPrioritiesAndStatusesAndUsers = (payload: { priorities: IState['priorities'], statuses: IState['statuses'], users: IState['users'] }): ISetPrioritiesAndStatusesAndUsers => ({
     type: ActionsType.SET_PRIORITIES_AND_STATUSES_AND_USERS,
     payload
+})
+
+export const setDefaultItem = (): ISetDefaultItem => ({
+    type: ActionsType.SET_DEFAULT_ITEM,
 })

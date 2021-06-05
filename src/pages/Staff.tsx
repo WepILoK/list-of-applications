@@ -1,5 +1,5 @@
 import React from "react";
-import {useStyles} from "./theme";
+import {useStyles} from "../style";
 
 export const Staff: React.FC = () => {
     const classes = useStyles()

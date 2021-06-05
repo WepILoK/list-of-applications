@@ -1,7 +1,7 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
 
-import {useApplicationListComponentsStyles} from "./theme";
+import {useApplicationListComponentsStyles} from "./style";
 
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
@@ -12,7 +12,6 @@ interface IModelBlock {
     name?: string
     children: React.ReactNode
 }
-
 
 export const ModalBlock: React.FC<IModelBlock> = ({name, children, title}) => {
     const classes = useApplicationListComponentsStyles()
