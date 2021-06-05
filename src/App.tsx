@@ -6,7 +6,7 @@ import {useStyles} from "./style";
 
 import {fetchPrioritiesAndStatusesAndUsers} from "./store/ducks/listItems/actionCreators";
 import {ApplicationsList} from "./pages/ApplicationsList/ApplicationsList";
-import {KnowledgeBase} from "./pages/knowledgeBase";
+import {KnowledgeBase} from "./pages/KnowledgeBase";
 import {SideMenu} from "./components/SideMenu";
 import {Header} from "./components/Header";
 import {Staff} from "./pages/Staff";
